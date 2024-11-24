@@ -4,33 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joel Tsuchitori - Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:wght@400;600&family=Source+Code+Pro&display=swap" rel="stylesheet">
     <style>
-        header, nav, footer, section, body {
-            margin: 0 auto;
-            max-width: 600px;
-            text-align: left;
+        .project-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
         
+        .project-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .project-details {
+            background: var(--section-background);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-details:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tech-stack {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .tech-tag {
+            background: var(--background-color);
+            color: var(--secondary-color);
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .project-details h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .project-details h4 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .project-details ul {
+            list-style-type: none;
+            padding-left: 1.5rem;
+        }
+
+        .project-details ul li {
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-details ul li:before {
+            content: "→";
+            position: absolute;
+            left: -1.5rem;
+            color: var(--accent-color);
+        }
     </style>
 </head>
 <body>
-
     <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-        </ul>
+        <div class="container">
+            <h1>Joel Tsuchitori</h1>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="resume.html" class="nav-link">Resume</a></li>
+                <li><a href="index.html#contact" class="btn btn-primary btn-sm">Contact</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <h2>ENPH 353 Robot Summer</h2>
-    <p> Over the course of the summer of 2022 me and a team of 3 other students created a robot for the notorious ENPH 353 'robot' summer course. 
-        The robot was designed to complete a series of tasks like picking up plastic 'idols' while avoiding obstacles, all while competing against the other teams in the class.
-        Our robot was one of only 2 teams in the whole class able to complete the whole course and score the maximum number of points due to our unconventional control system which eschewed the expected linefollowing strategy to instead navigate using an IMU and dead reckoning.
-    </p>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Portfolio</h1>
+                <p>Showcasing my engineering projects and technical work</p>
+            </div>
+        </div>
+    </section>
 
+    <section id="projects" class="section-padding">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            
+            <div class="project-details">
+                <h3>ENPH 353 Robot Summer</h3>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/800/400" alt="ENPH 353 Robot" class="project-image">
+                    <div class="portfolio-item-content">
+                        <p>Over the course of the summer of 2022, my team of 4 students created a robot for the notorious ENPH 353 'robot' summer course. The robot was designed to complete a series of tasks like picking up plastic 'idols' while avoiding obstacles, all while competing against other teams in the class.</p>
+                        
+                        <h4>Key Achievements:</h4>
+                        <ul>
+                            <li>One of only 2 teams to achieve maximum points</li>
+                            <li>Developed innovative navigation using IMU and dead reckoning</li>
+                            <li>Successfully avoided conventional line-following approach</li>
+                        </ul>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Robotics</span>
+                            <span class="tech-tag">IMU Navigation</span>
+                            <span class="tech-tag">Dead Reckoning</span>
+                            <span class="tech-tag">Sensor Integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        <script src="copyright.js"></script>
+        <div class="container">
+            <p><script src="copyright.js"></script></p>
+        </div>
     </footer>
 </body>
 </html>
