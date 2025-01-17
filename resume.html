@@ -1,112 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joel Tsuchitori - About</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:wght@400;600&family=Source+Code+Pro&display=swap" rel="stylesheet">
-    <style>
-        .resume-container {
-            background: var(--section-background);
-            padding: 2.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border: 1px solid var(--border-color);
-            margin: 2rem 0;
-        }
-        
-        .resume-frame {
-            width: 100%;
-            height: 800px;
-            border: none;
-            border-radius: 4px;
-            background: white;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
+<section class="section">
+    <h1>Resume</h1>
+    
+    <div class="resume-section">
+        <h2>Education</h2>
+        <div class="experience-item">
+            <h3>University of British Columbia</h3>
+            <div class="date">Expected May 2025</div>
+            <p>Bachelor of Applied Science in Engineering Physics</p>
+            <p>Grade Average: 86.1%</p>
+        </div>
+    </div>
 
-        .download-section {
-            display: flex;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
-        
-        .download-button {
-            text-decoration: none;
-        }
-        
-        .download-button .btn-icon {
-            gap: 0.75rem;
-        }
-
-        .about-content {
-            background: var(--section-background);
-            padding: 2.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border: 1px solid var(--border-color);
-            margin: 2rem 0;
-        }
-    </style>
-</head>
-<body>
-    <nav>
-        <div class="container">
-            <h1>Joel Tsuchitori</h1>
-            <ul class="nav-links">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
-                <li><a href="#resume" class="nav-link">Resume</a></li>
-                <li><a href="index.html#contact" class="btn btn-primary btn-sm">Contact</a></li>
+    <div class="resume-section">
+        <h2>Experience</h2>
+        <div class="experience-item">
+            <h3>Resemble AI</h3>
+            <div class="date">May 2023 – Jan 2024</div>
+            <p>Machine Learning Researcher Intern</p>
+            <ul>
+                <li>Developed and deployed novel AI deepfake detection techniques for speech and audio with state of the art performance</li>
+                <li>Created multiple novel ML algorithms and implemented ones found in the literature to benchmark against</li>
+                <li>Collected multiple large datasets of thousands of hours of AI-generated, deepfake, and bonafide data</li>
             </ul>
         </div>
-    </nav>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Resume & About</h1>
-                <p>Learn more about my background and experience</p>
-            </div>
+        <div class="experience-item">
+            <h3>Murphy Lab</h3>
+            <div class="date">May 2023 – Jan 2024</div>
+            <p>Neuroscience Lab Assistant Intern</p>
+            <ul>
+                <li>Investigated using transformer based neural networks for creating interpretable neural embeddings</li>
+                <li>Extended and Improved state of the art neural network embedding techniques</li>
+                <li>Designed and constructed experiment setups for researching social interaction</li>
+            </ul>
         </div>
-    </section>
 
-    <section id="about" class="section-padding">
-        <div class="container">
-            <h2>About Me</h2>
-            <div class="about-content">
-                <!-- Add your about content here -->
-                <p>Content coming soon...</p>
-            </div>
+        <div class="experience-item">
+            <h3>NRC Herzberg: CCAT</h3>
+            <div class="date">Jan 2022 – May 2022</div>
+            <p>Astronomy Instrumentation Design Intern</p>
+            <ul>
+                <li>Designed a novel method of tone generation for superconducting Kinetic Inductance Detector Readout</li>
+                <li>Optimized readout architecture significantly reducing resource utilization</li>
+                <li>Designed and implemented gateware designs using Simulink and Vivado</li>
+            </ul>
         </div>
-    </section>
+    </div>
 
-    <section id="resume" class="section-padding">
-        <div class="container">
-            <h2>Resume</h2>
-            <div class="resume-container">
-                <iframe src="resume.pdf" class="resume-frame" title="Resume PDF"></iframe>
-                <div class="download-section">
-                    <a href="resume.pdf" download class="download-button">
-                        <button class="btn btn-primary btn-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                <polyline points="7 10 12 15 17 10"/>
-                                <line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
-                            Download Resume
-                        </button>
-                    </a>
-                </div>
-            </div>
+    <div class="resume-section">
+        <h2>Projects</h2>
+        <div class="project-item">
+            <h3>
+                <a href="#" hx-get="portfolio.html" hx-target="#main-content" hx-push-url="true" class="project-link">
+                    Digital AI Clone Capstone Project
+                </a>
+            </h3>
+            <p>PyTorch, Python, Machine Learning, Generative AI, High Performance Computing</p>
+            <ul>
+                <li>Developed an Unconditional Audio Diffusion model building off of SOTA work in Diffusion</li>
+                <li>Created and Trained a custom video autop-encoder model for use in long-range multimodal diffusion</li>
+                <li>Developed and trained a multimodal diffusion based agent trained off of player data collected from Minecraft</li>
+            </ul>
         </div>
-    </section>
 
-    <footer>
-        <div class="container">
-            <p><script src="copyright.js"></script></p>
+        <div class="project-item">
+            <h3>
+                <a href="#" hx-get="portfolio.html" hx-target="#main-content" hx-push-url="true" class="project-link">
+                    Silicon Photonics Fabry Perot Cavity
+                </a>
+            </h3>
+            <p>Silicon Photonics, Lumerical, Matlab, Simulation, KLayout</p>
+            <ul>
+                <li>Designed a Fabry Perot Cavity with Bragg Grating mirrors to maximize Q factor of the transmission spectrum</li>
+                <li>Layed out the Designs in KLayout to be manufactured with Electron Beam Lithography and tested</li>
+            </ul>
         </div>
-    </footer>
-</body>
-</html>
+
+        <div class="project-item">
+            <h3>
+                <a href="#" hx-get="portfolio.html" hx-target="#main-content" hx-push-url="true" class="project-link">
+                    Engineering Physics Robotics Competition
+                </a>
+            </h3>
+            <p>Arduino Code, Prototyping, CAD, Soldering, Circuit Design, Control theory</p>
+            <ul>
+                <li>Designed and built a robot using an STM-32 microcontroller to compete against other students</li>
+                <li>Implemented an IMU based navigation system with PID controllers and sensor filtering</li>
+                <li>Used signal processing knowledge to design digital signal processing for IR beacon tracking</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="resume-section">
+        <h2>Technical Skills</h2>
+        <div class="skills-item">
+            <h3>Programming Languages</h3>
+            <p>Python, C, Matlab, Bash, Rust, Java</p>
+        </div>
+        <div class="skills-item">
+            <h3>Software & Tools</h3>
+            <p>PyTorch, Anaconda, Slurm, Solidworks, ROS, Matlab, Simulink, Linux (Arch, Ubuntu), Excel, KiCad, Onshape</p>
+        </div>
+        <div class="skills-item">
+            <h3>Hardware & Prototyping</h3>
+            <p>CAD, Soldering, Circuit Design, PCB fabrication & SMD component Soldering, 3d Printing, Laser Cutting, Waterjet Cutting, Metalworking (Mill & Lathe)</p>
+        </div>
+        <div class="skills-item">
+            <h3>Concepts</h3>
+            <p>Digital Signal Processing, Control Theory, Machine Learning, Diffusion, Generative AI, Neural Networks, Hardware Prototyping, Circuit Design, API, Research, FPGA Development, Robotics</p>
+        </div>
+    </div>
+</section>

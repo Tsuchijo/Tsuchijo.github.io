@@ -1,149 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joel Tsuchitori - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:wght@400;600&family=Source+Code+Pro&display=swap" rel="stylesheet">
-    <style>
-        .project-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .project-image:hover {
-            transform: scale(1.02);
-        }
-        
-        .project-details {
-            background: var(--section-background);
-            padding: 2.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            margin-bottom: 3rem;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .project-details:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-        
-        .tech-stack {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-        
-        .tech-tag {
-            background: var(--background-color);
-            color: var(--secondary-color);
-            padding: 0.5rem 1.25rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid var(--secondary-color);
-            transition: all 0.3s ease;
-        }
-        
-        .tech-tag:hover {
-            background: var(--secondary-color);
-            color: white;
-        }
-
-        .project-details h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-
-        .project-details h4 {
-            color: var(--primary-color);
-            margin: 1.5rem 0 1rem;
-        }
-
-        .project-details ul {
-            list-style-type: none;
-            padding-left: 1.5rem;
-        }
-
-        .project-details ul li {
-            position: relative;
-            margin-bottom: 0.75rem;
-        }
-
-        .project-details ul li:before {
-            content: "→";
-            position: absolute;
-            left: -1.5rem;
-            color: var(--accent-color);
-        }
-    </style>
-</head>
-<body>
-    <nav>
-        <div class="container">
-            <h1>Joel Tsuchitori</h1>
-            <ul class="nav-links">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="resume.html" class="nav-link">Resume</a></li>
-                <li><a href="index.html#contact" class="btn btn-primary btn-sm">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Portfolio</h1>
-                <p>Showcasing my engineering projects and technical work</p>
+<section class="section">
+    <h1>Portfolio</h1>
+    
+    <div class="portfolio-section">
+        <h2>Digital AI Clone Capstone Project</h2>
+        <div class="portfolio-content">
+            <div class="gif-gallery">
+                <div class="gif-container pausable">
+                    <img src="gifs/video_with_audio_4.gif" alt="Generated Video">
+                    <div class="gif-caption">Generated Video of Minecraft gameplay from our multimodal diffusion model</div>
+                </div>
+                <div class="gif-container pausable">
+                    <img src="gifs/video_with_audio_new_24.gif" alt="Generated Video">
+                    <div class="gif-caption">Another Generated Video from our Minecraft model</div>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <section id="projects" class="section-padding">
-        <div class="container">
-            <h2>Featured Projects</h2>
-            
             <div class="project-details">
-                <h3>ENPH 353 Robot Summer</h3>
-                <div class="portfolio-item">
-                    <img src="/api/placeholder/800/400" alt="ENPH 353 Robot" class="project-image">
-                    <div class="portfolio-item-content">
-                        <p>Over the course of the summer of 2022, my team of 4 students created a robot for the notorious ENPH 353 'robot' summer course. The robot was designed to complete a series of tasks like picking up plastic 'idols' while avoiding obstacles, all while competing against other teams in the class.</p>
-                        
-                        <h4>Key Achievements:</h4>
-                        <ul>
-                            <li>One of only 2 teams to achieve maximum points</li>
-                            <li>Developed innovative navigation using IMU and dead reckoning</li>
-                            <li>Successfully avoided conventional line-following approach</li>
-                        </ul>
-                        
-                        <div class="tech-stack">
-                            <span class="tech-tag">Robotics</span>
-                            <span class="tech-tag">IMU Navigation</span>
-                            <span class="tech-tag">Dead Reckoning</span>
-                            <span class="tech-tag">Sensor Integration</span>
-                        </div>
-                    </div>
+                <h3>Overview</h3>
+                <p>A comprehensive AI project exploring multimodal diffusion models for generating coherent audio, video, and agent behavior.
+                    Work completed as part of a capstone project working with Frank Wood's PLAI group at UBC.
+                </p>
+                
+                <h3>Technical Details</h3>
+                <ul>
+                    <li>Developed unconditional audio diffusion models based on state-of-the-art architectures</li>
+                    <li>Created and trained custom video autoencoder for efficient representation learning</li>
+                    <li>Implemented multimodal diffusion agent for Minecraft gameplay</li>
+                    <li>Developed Novel multimodal diffusion model tying together video audio and player action using long range diffusion</li>
+                </ul>
+                
+                <h3>Technologies Used</h3>
+                <ul>
+                    <li>PyTorch for deep learning implementation</li>
+                    <li>High Performance Computing clusters for training</li>
+                    <li>Custom diffusion architectures based off previous work from the PLAI group</li>
+                </ul>
+                
+                <div class="project-links">
+                    <h3>Related Links</h3>
+                    <ul>
+                        <li><a href="#">GitHub Repository</a></li>
+                        <li><a href="#">Demo Video</a></li>
+                        <li><a href="#">Technical Documentation</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <footer>
-        <div class="container">
-            <p><script src="copyright.js"></script></p>
+    <div class="portfolio-section">
+        <h2>Engineering Physics Robotics Competition</h2>
+        <div class="portfolio-content">
+            <div class="media-gallery">
+                <!-- Add your images/videos here -->
+                <img src="pictures/IMG_8991.jpg" alt="Robotics Competition">
+            </div>
+            <div class="project-details">
+                <h3>Overview</h3>
+                <p>Designed and built a competitive robot for Engineering Physics 'Robot Summer' competition featuring advanced navigation and sensing capabilities.</p>
+                
+                <h3>Technical Details</h3>
+                <ul>
+                    <li>Implemented IMU-based navigation with PID control</li>
+                    <li>Developed digital signal processing for IR beacon tracking</li>
+                    <li>Created complete mechanical and electrical systems</li>
+                </ul>
+                
+                <h3>Technologies Used</h3>
+                <ul>
+                    <li>STM-32 microcontroller programming</li>
+                    <li>CAD software for mechanical design</li>
+                    <li>Designing and soldering custom prototype circuits</li>
+                </ul>
+                
+                <h3>Results & Impact</h3>
+                <p>Became one of only teams in the class to score full points in competition. Ultimately scored lower than expected due to electrical failure early in the competition. </p>
+                
+            </div>
         </div>
-    </footer>
-</body>
-</html>
+    </div>
+</section>
