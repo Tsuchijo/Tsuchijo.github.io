@@ -11,14 +11,18 @@
     <nav>
         <div class="container">
             <ul>
-                <li><a href="about.html" hx-get="about.html" hx-target="#main-content" hx-push-url="true">About</a></li>
-                <li><a href="resume.html" hx-get="resume.html" hx-target="#main-content" hx-push-url="true">Resume</a></li>
-                <li><a href="portfolio.html" hx-get="portfolio.html" hx-target="#main-content" hx-push-url="true">Portfolio</a></li>
+                <li><a href="/about.html" hx-get="/about.html" hx-target="#main-content" hx-push-url="true" hx-indicator=".loading">About</a></li>
+                <li><a href="/resume.html" hx-get="/resume.html" hx-target="#main-content" hx-push-url="true" hx-indicator=".loading">Resume</a></li>
+                <li><a href="/portfolio.html" hx-get="/portfolio.html" hx-target="#main-content" hx-push-url="true" hx-indicator=".loading">Portfolio</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container">
+        <!-- Loading indicator -->
+        <div class="loading htmx-indicator">Loading...</div>
+        
+        <!-- Main content area -->
         <div id="main-content" hx-get="about.html" hx-trigger="load">
             <!-- Content will be loaded dynamically -->
         </div>
@@ -26,11 +30,14 @@
 
     <footer>
         <div class="container">
-            <p>© <script>document.write(new Date().getFullYear())</script> Joel Tsuchitori. All rights reserved.</p>
+            <p>© <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
+        // Set the year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
         // Footer visibility control
         let lastScrollTop = 0;
         const footer = document.querySelector('footer');
@@ -41,6 +48,19 @@
                 footer.classList.add('visible');
             } else {
                 footer.classList.remove('visible');
+            }
+        });
+
+        // Setup HTMX history support
+        document.body.addEventListener('htmx:configRequest', function(evt) {
+            evt.detail.headers['X-History-Restore-Request'] = 'true';
+        });
+
+        document.body.addEventListener('htmx:afterSettle', function(evt) {
+            // Update the page title based on the current content
+            const h1 = document.querySelector('h1');
+            if (h1) {
+                document.title = h1.textContent + ' - Joel Tsuchitori';
             }
         });
     </script>

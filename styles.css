@@ -360,3 +360,27 @@ pre {
         grid-template-columns: 1fr;
     }
 }
+
+.about-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+    margin: 2rem 0;
+}
+
+.about-content {
+    flex: 2;
+}
+
+.portrait-container {
+    flex: 1;
+    max-width: 300px;
+}
+
+.portrait {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
