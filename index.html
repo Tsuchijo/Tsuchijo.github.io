@@ -11,7 +11,7 @@
     <nav>
         <div class="container">
             <ul>
-                <li><a href="index.html" hx-get="about.html" hx-target="#main-content" hx-push-url="true">About</a></li>
+                <li><a href="about.html" hx-get="about.html" hx-target="#main-content" hx-push-url="true">About</a></li>
                 <li><a href="resume.html" hx-get="resume.html" hx-target="#main-content" hx-push-url="true">Resume</a></li>
                 <li><a href="portfolio.html" hx-get="portfolio.html" hx-target="#main-content" hx-push-url="true">Portfolio</a></li>
             </ul>
@@ -19,19 +19,8 @@
     </nav>
 
     <main class="container">
-        <div id="main-content">
-            <!-- About Section (Default View) -->
-            <section class="section">
-                <h1>Joel Tsuchitori</h1>
-                <p>Engineering Physics student at UBC with a focus on Machine Learning and Signal Processing. Currently exploring the intersections of AI, robotics, and physics.</p>
-                
-                <div class="contact-links">
-                    <a href="mailto:TsuchitoriJoel@gmail.com">Email</a>
-                    <a href="https://linkedin.com/tsuchijo">LinkedIn</a>
-                    <a href="https://github.com/tsuchijo">GitHub</a>
-                    <a href="https://tsuchijo.github.io">Personal Site</a>
-                </div>
-            </section>
+        <div id="main-content" hx-get="about.html" hx-trigger="load">
+            <!-- Content will be loaded dynamically -->
         </div>
     </main>
 
