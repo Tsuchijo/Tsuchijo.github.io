@@ -6,14 +6,16 @@
     <title>Joel Tsuchitori</title>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
 </head>
 <body>
     <nav>
         <div class="container">
             <ul>
-                <li><a href="/about.html" hx-get="/about.html" hx-target="#main-content" hx-push-url="true" hx-indicator=".loading">About</a></li>
-                <li><a href="/resume.html" hx-get="/resume.html" hx-target="#main-content" hx-push-url="true" hx-indicator=".loading">Resume</a></li>
-                <li><a href="/portfolio.html" hx-get="/portfolio.html" hx-target="#main-content" hx-push-url="true" hx-indicator=".loading">Portfolio</a></li>
+                <li><a href="/about.html" hx-get="/about.html" hx-target="#main-content" hx-push-url="false" hx-indicator=".loading">About</a></li>
+                <li><a href="/resume.html" hx-get="/resume.html" hx-target="#main-content" hx-push-url="false" hx-indicator=".loading">Resume</a></li>
+                <li><a href="/portfolio.html" hx-get="/portfolio.html" hx-target="#main-content" hx-push-url="false" hx-indicator=".loading">Portfolio</a></li>
+                <li><a href="https://tsuchijo.substack.com/"> Blog</a></li>
             </ul>
         </div>
     </nav>
@@ -23,7 +25,7 @@
         <div class="loading htmx-indicator">Loading...</div>
         
         <!-- Main content area -->
-        <div id="main-content" hx-get="about.html" hx-trigger="load">
+                <div id="main-content" hx-get="about.html" hx-trigger="load">
             <!-- Content will be loaded dynamically -->
         </div>
     </main>
