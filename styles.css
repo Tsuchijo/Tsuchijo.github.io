@@ -2,15 +2,17 @@
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #34495e;
-    --background-color: #f5f7fa;
-    --text-color: #1a1f36;
-    --accent-color: #3b82f6;
+    --background-color: #fbf9f1;
+    --text-color: #1b2037;
+    --accent-color: #705e40;
     --border-color: #e5e7eb;
-    --nav-bg: #ffffff;
-    --card-bg: #ffffff;
-    --hover-bg: #f8fafc;
+    --nav-bg: #f2f0e8;
+    --card-bg: #fffdf7;
+    --hover-bg: #faf5e5;
     --spacing-unit: 1rem;
 }
+
+
 
 body {
     font-family: "Crimson Text", Georgia, serif;
@@ -204,30 +206,6 @@ h1, h2, h3 {
     color: var(--primary-color);
 }
 
-/* Contact section styles */
-.contact-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-}
-
-.contact-links a {
-    color: var(--text-color);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    background: var(--card-bg);
-}
-
-.contact-links a:hover {
-    color: var(--accent-color);
-    background: var(--hover-bg);
-    border-color: var(--accent-color);
-}
-
 /* Footer styles */
 footer {
     text-align: center;
@@ -417,16 +395,16 @@ p {
 }
 
 .contact-links a {
-    padding: 0.5rem 1rem;
-    color: #3182ce;
+    padding: 0.5rem 0.5rem;
+    color: var(--accent-color);
     text-decoration: none;
     border-radius: 4px;
     transition: all 0.2s ease;
 }
 
 .contact-links a:hover {
-    background-color: #ebf8ff;
-    color: #2c5282;
+    background-color: var(--hover-bg);
+    color: var(--primary-color);
 }
 
 /* Responsive Design */
