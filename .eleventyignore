@@ -1,0 +1,12 @@
+node_modules
+_site
+.git
+.gitignore
+package.json
+package-lock.json
+README.md
+styles.css
+index.html
+pictures/
+gifs/
+convert_to_gif.sh

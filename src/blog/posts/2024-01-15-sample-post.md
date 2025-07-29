@@ -15,14 +15,14 @@ This is a sample blog post demonstrating the rich markdown formatting capabiliti
 
 You can easily embed images with captions:
 
-![Photonic system diagram](/pictures/system-diffusion.png){.center}
+![Photonic system diagram](../../pictures/system-diffusion.png){.center}
 
 ### Videos
 
 Videos are also supported (though this is a placeholder):
 
 <video controls>
-  <source src="/gifs/video_with_audio_4.gif" type="video/gif">
+  <source src="../../gifs/video_with_audio_4.gif" type="video/gif">
   Your browser does not support the video tag.
 </video>
 

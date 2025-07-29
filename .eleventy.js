@@ -32,16 +32,18 @@ module.exports = function(eleventyConfig) {
   
   eleventyConfig.setLibrary("md", markdownLib);
   
-  // Copy static files
-  eleventyConfig.addPassthroughCopy("src/blog/assets");
-  eleventyConfig.addPassthroughCopy("pictures");
-  eleventyConfig.addPassthroughCopy("styles.css");
+  // Static files already exist in root, no need to copy
   
   // Create blog post collection
   eleventyConfig.addCollection("posts", function(collectionApi) {
     return collectionApi.getFilteredByGlob("src/blog/posts/*.md").sort(function(a, b) {
       return b.date - a.date;
     });
+  });
+  
+  // Create main pages collection
+  eleventyConfig.addCollection("pages", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/pages/*.md");
   });
   
   // Add date filter
@@ -57,7 +59,7 @@ module.exports = function(eleventyConfig) {
   return {
     dir: {
       input: "src",
-      output: "_site",
+      output: ".",
       includes: "_includes",
       layouts: "_layouts"
     },
