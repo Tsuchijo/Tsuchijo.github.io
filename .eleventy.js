@@ -31,8 +31,11 @@ module.exports = function(eleventyConfig) {
   );
   
   eleventyConfig.setLibrary("md", markdownLib);
-  
-  // Static files already exist in root, no need to copy
+
+  // Copy static assets to the output directory
+  eleventyConfig.addPassthroughCopy("styles.css");
+  eleventyConfig.addPassthroughCopy("pictures");
+  eleventyConfig.addPassthroughCopy("gifs");
   
   // Create blog post collection
   eleventyConfig.addCollection("posts", function(collectionApi) {
@@ -66,7 +69,7 @@ module.exports = function(eleventyConfig) {
   return {
     dir: {
       input: "src",
-      output: ".",
+      output: "_site",
       includes: "_includes",
       layouts: "_layouts"
     },

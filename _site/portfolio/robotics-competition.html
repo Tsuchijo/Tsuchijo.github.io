@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Physics Robotics Competition - Joel Tsuchitori</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/resume.html">Resume</a></li>
+                <li><a href="/portfolio/index.html">Portfolio</a></li>
+                <li><a href="/blog/index.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+<article class="blog-post">
+    <header>
+        <h1>Engineering Physics Robotics Competition</h1>
+    </header>
+    
+    <div class="blog-content">
+        <div class="portfolio-content">
+<div class="media-gallery">
+<p><img src="/pictures/IMG_8991.jpg" alt="Robotics Competition">
+<em>Our final robot design for the competition</em></p>
+</div>
+<div class="project-details">
+<h3>Overview</h3>
+<p>Designed and built a competitive robot for Engineering Physics 'Robot Summer' competition featuring advanced navigation and sensing capabilities.</p>
+<h3>Technical Details</h3>
+<ul>
+<li>Implemented IMU-based navigation with PID control</li>
+<li>Developed digital signal processing for IR beacon tracking</li>
+<li>Created complete mechanical and electrical systems</li>
+</ul>
+<h3>Technologies Used</h3>
+<ul>
+<li>STM-32 microcontroller programming</li>
+<li>CAD software for mechanical design</li>
+<li>Designing and soldering custom prototype circuits</li>
+</ul>
+<h3>Results &amp; Impact</h3>
+<p>Became one of only teams in the class to score full points in competition. Ultimately scored lower than expected due to electrical failure early in the competition.</p>
+</div>
+</div>
+
+    </div>
+</article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set the year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Footer visibility control
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+        
+        window.addEventListener('scroll', () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+            if (nearBottom) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>

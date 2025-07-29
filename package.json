@@ -8,7 +8,7 @@
     "build:watch": "eleventy --watch",
     "serve": "eleventy --serve",
     "clean": "npm run clean:generated",
-    "clean:generated": "rm -rf blog about.html portfolio.html resume.html",
+    "clean:generated": "rm -rf _site",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
