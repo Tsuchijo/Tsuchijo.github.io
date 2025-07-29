@@ -4,6 +4,7 @@ layout: portfolio-item.njk
 permalink: /portfolio/silicon-photonics.html
 date: 2023-04-28
 description: Designed and simulated a Silicon Photonics Fabry Perot Cavity with Bragg Grating mirrors.
+tags: ["photonics", "silicon", "optics", "simulation", "nanophotonics"]
 ---
 
 <div class="portfolio-content">

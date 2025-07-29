@@ -4,6 +4,7 @@ layout: portfolio-item.njk
 permalink: /portfolio/robotics-competition.html
 date: 2022-08-01
 description: Designed and built a competitive robot for the Engineering Physics 'Robot Summer' competition.
+tags: ["robotics", "engineering physics", "embedded systems", "PID control"]
 ---
 
 <div class="portfolio-content">

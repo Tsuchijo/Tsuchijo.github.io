@@ -4,6 +4,7 @@ layout: portfolio-item.njk
 permalink: /portfolio/ai-clone.html
 date: 2023-12-20
 description: A comprehensive AI project exploring multimodal diffusion models for generating coherent audio, video, and agent behavior.
+tags: ["AI", "machine learning", "diffusion models", "multimodal", "deep learning", "capstone"]
 ---
 
 <div class="portfolio-content">

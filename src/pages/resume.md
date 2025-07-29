@@ -11,7 +11,7 @@ permalink: /resume.html
 <div class="experience-item">
 
 ### University of British Columbia
-*Expected July 2025*
+*July 2025*
 
 Bachelor of Applied Science in Engineering Physics  
 Grade Average: 86.1%

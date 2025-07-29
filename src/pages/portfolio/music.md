@@ -4,6 +4,7 @@ layout: portfolio-item.njk
 permalink: /portfolio/music.html
 date: 2020-01-01
 description: A collection of my musical creations.
+tags: ["music", "electronic music", "audio", "bass guitar"]
 ---
 
 <div class="portfolio-content">
