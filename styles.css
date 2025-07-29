@@ -417,33 +417,24 @@ p {
     .portrait-container {
         width: 100%;
         flex-basis: auto;
-        height: 300px;
+        height: auto; /* Allow height to adjust based on content */
+        padding-bottom: 133.33%; /* Maintain 3:4 aspect ratio (height/width * 100) */
+        position: relative; /* Needed for absolute positioning of the image */
     }
 
-    .content-container {
-        text-align: center;
+    .portrait {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Fill the container while maintaining aspect ratio */
+        object-position: center;
     }
 
     .contact-links {
+        flex-wrap: nowrap; /* Prevent wrapping */
         justify-content: center;
+        gap: 1rem; /* Adjust gap for smaller screens */
     }
-
-    h1 {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .section {
-        padding: 1rem;
-    }
-
-    .portrait-container {
-        height: 250px;
-    }
-
-    h1 {
-        font-size: 1.75rem;
-    }
-}
 

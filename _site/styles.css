@@ -417,33 +417,20 @@ p {
     .portrait-container {
         width: 100%;
         flex-basis: auto;
-        height: 300px;
+        height: auto; /* Allow height to adjust based on content */
+        max-height: 400px; /* Optional: Set a max height if desired */
     }
 
-    .content-container {
-        text-align: center;
+    .portrait {
+        width: 100%;
+        height: auto;
+        object-fit: contain; /* Ensure the entire image is visible */
+        object-position: center;
     }
 
     .contact-links {
+        flex-wrap: nowrap; /* Prevent wrapping */
         justify-content: center;
+        gap: 1rem; /* Adjust gap for smaller screens */
     }
-
-    h1 {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .section {
-        padding: 1rem;
-    }
-
-    .portrait-container {
-        height: 250px;
-    }
-
-    h1 {
-        font-size: 1.75rem;
-    }
-}
 
