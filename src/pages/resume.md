@@ -1,6 +1,6 @@
 ---
 title: Resume
-layout: page-fragment.njk
+layout: standalone.njk
 permalink: /resume.html
 ---
 

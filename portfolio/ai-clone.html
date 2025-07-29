@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital AI Clone Capstone Project - Joel Tsuchitori</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/resume.html">Resume</a></li>
+                <li><a href="/portfolio/">Portfolio</a></li>
+                <li><a href="/blog/">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+<article class="blog-post">
+    <header>
+        <h1>Digital AI Clone Capstone Project</h1>
+    </header>
+    
+    <div class="blog-content">
+        <div class="portfolio-content">
+<div class="gif-gallery">
+<p><img src="/gifs/video_with_audio_4.gif" alt="Generated Video" class="gif-container pausable">
+<em>Generated Video of Minecraft gameplay from our multimodal diffusion model</em></p>
+<p><img src="/gifs/video_with_audio_new_24.gif" alt="Generated Video" class="gif-container pausable">
+<em>Another Generated Video from our Minecraft model</em></p>
+<p><img src="/pictures/system-diffusion.png" alt="System Diagram"></p>
+</div>
+<div class="project-details">
+<h3>Overview</h3>
+<p>A comprehensive AI project exploring multimodal diffusion models for generating coherent audio, video, and agent behavior. Work completed as part of a capstone project working with Frank Wood's PLAI group at UBC.</p>
+<h3>Technical Details</h3>
+<ul>
+<li>Developed unconditional audio diffusion models based on state-of-the-art architectures</li>
+<li>Created and trained custom video autoencoder for efficient representation learning</li>
+<li>Implemented multimodal diffusion agent for Minecraft gameplay</li>
+<li>Developed Novel multimodal diffusion model tying together video audio and player action using long range diffusion</li>
+</ul>
+<h3>Technologies Used</h3>
+<ul>
+<li>PyTorch for deep learning implementation</li>
+<li>High Performance Computing clusters for training</li>
+<li>Custom diffusion architectures based off previous work from the PLAI group</li>
+</ul>
+</div>
+</div>
+
+    </div>
+</article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set the year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Footer visibility control
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+        
+        window.addEventListener('scroll', () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+            if (nearBottom) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>

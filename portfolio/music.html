@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music - Joel Tsuchitori</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/resume.html">Resume</a></li>
+                <li><a href="/portfolio/">Portfolio</a></li>
+                <li><a href="/blog/">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+<article class="blog-post">
+    <header>
+        <h1>Music</h1>
+    </header>
+    
+    <div class="blog-content">
+        <div class="portfolio-content">
+<div class="media-gallery">
+<p><img src="/pictures/DSC00615.JPG" alt="Playing Bass"></p>
+</div>
+<div class="project-details">
+<p>Music has always been a passion of mine. Check out what I make below! I mainly make electronic music and dance remixes but also play bass guitar.</p>
+<div class="contact-links">
+<a href="https://soundcloud.com/0x8024000">Soundcloud</a>
+</div>
+</div>
+</div>
+
+    </div>
+</article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set the year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Footer visibility control
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+        
+        window.addEventListener('scroll', () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+            if (nearBottom) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>

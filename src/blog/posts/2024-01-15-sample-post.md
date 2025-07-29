@@ -22,7 +22,7 @@ You can easily embed images with captions:
 Videos are also supported (though this is a placeholder):
 
 <video controls>
-  <source src="../../gifs/video_with_audio_4.gif" type="video/gif">
+  <source src="/gifs/video_with_audio_4.gif" type="video/gif">
   Your browser does not support the video tag.
 </video>
 

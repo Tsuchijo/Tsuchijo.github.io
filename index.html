@@ -2,69 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joel Tsuchitori</title>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="pictures/favicon-design.svg" type="image/svg+xml">
+    <meta http-equiv="refresh" content="0; url=/about.html" />
+    <title>Redirecting to About</title>
+    <link rel="canonical" href="/about.html" />
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="about.html" hx-get="about.html" hx-target="#main-content" hx-push-url="false" hx-indicator=".loading">About</a></li>
-                <li><a href="resume.html" hx-get="resume.html" hx-target="#main-content" hx-push-url="false" hx-indicator=".loading">Resume</a></li>
-                <li><a href="portfolio.html" hx-get="portfolio.html" hx-target="#main-content" hx-push-url="false" hx-indicator=".loading">Portfolio</a></li>
-                <li><a href="blog/" hx-get="blog/blog-content/index.html" hx-target="#main-content" hx-push-url="false" hx-indicator=".loading">Blog</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="container">
-        <!-- Loading indicator -->
-        <div class="loading htmx-indicator">Loading...</div>
-        
-        <!-- Main content area -->
-        <div id="main-content" hx-get="about.html" hx-trigger="load">
-            <!-- Content will be loaded dynamically -->
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>� <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Set the year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Footer visibility control
-        let lastScrollTop = 0;
-        const footer = document.querySelector('footer');
-        
-        window.addEventListener('scroll', () => {
-            const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
-            if (nearBottom) {
-                footer.classList.add('visible');
-            } else {
-                footer.classList.remove('visible');
-            }
-        });
-
-        // Setup HTMX history support
-        document.body.addEventListener('htmx:configRequest', function(evt) {
-            evt.detail.headers['X-History-Restore-Request'] = 'true';
-        });
-
-        document.body.addEventListener('htmx:afterSettle', function(evt) {
-            // Update the page title based on the current content
-            const h1 = document.querySelector('h1');
-            if (h1) {
-                document.title = h1.textContent + ' - Joel Tsuchitori';
-            }
-        });
-    </script>
+    <p>If you are not redirected automatically, follow this <a href="/about.html">link to the About page</a>.</p>
 </body>
 </html>

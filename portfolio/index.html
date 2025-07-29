@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joel Tsuchitori</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/resume.html">Resume</a></li>
+                <li><a href="/portfolio/">Portfolio</a></li>
+                <li><a href="/blog/">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+<div class="blog-post">
+    <h1>Portfolio</h1>
+    <p>Here are some of my projects.</p>
+    
+    <div class="posts-list"><article class="experience-item">
+                <h3><a href="/portfolio/uxo-detector.html" class="project-link">Frequency Domain Electromagnetic UXO Detector</a></h3>
+                <div class="date">April 2, 2024</div>
+                <p>A capstone project to build a frequency domain electromagnetic survey device for UXO detection.</p>
+            </article><article class="experience-item">
+                <h3><a href="/portfolio/ai-clone.html" class="project-link">Digital AI Clone Capstone Project</a></h3>
+                <div class="date">December 19, 2023</div>
+                <p>A comprehensive AI project exploring multimodal diffusion models for generating coherent audio, video, and agent behavior.</p>
+            </article><article class="experience-item">
+                <h3><a href="/portfolio/silicon-photonics.html" class="project-link">Silicon Photonics Fabry Perot Cavity</a></h3>
+                <div class="date">April 27, 2023</div>
+                <p>Designed and simulated a Silicon Photonics Fabry Perot Cavity with Bragg Grating mirrors.</p>
+            </article><article class="experience-item">
+                <h3><a href="/portfolio/robotics-competition.html" class="project-link">Engineering Physics Robotics Competition</a></h3>
+                <div class="date">July 31, 2022</div>
+                <p>Designed and built a competitive robot for the Engineering Physics &#39;Robot Summer&#39; competition.</p>
+            </article><article class="experience-item">
+                <h3><a href="/portfolio/music.html" class="project-link">Music</a></h3>
+                <div class="date">December 31, 2019</div>
+                <p>A collection of my musical creations.</p>
+            </article></div>
+</div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set the year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Footer visibility control
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+        
+        window.addEventListener('scroll', () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+            if (nearBottom) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>

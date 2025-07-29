@@ -1,6 +1,6 @@
 ---
 title: About
-layout: page-fragment.njk
+layout: standalone.njk
 permalink: /about.html
 ---
 

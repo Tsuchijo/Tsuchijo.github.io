@@ -40,6 +40,13 @@ module.exports = function(eleventyConfig) {
       return b.date - a.date;
     });
   });
+
+  // Create portfolio collection
+  eleventyConfig.addCollection("portfolio", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/pages/portfolio/*.md").sort(function(a, b) {
+      return b.date - a.date;
+    });
+  });
   
   // Create main pages collection
   eleventyConfig.addCollection("pages", function(collectionApi) {
