@@ -1,0 +1,104 @@
+<!-- HTMX Fragment for loading into main site -->
+<article class="blog-post">
+    <div class="back-to-blog">
+        <a href="/blog/" hx-get="/blog/blog-content/index.html" hx-target="#main-content" hx-push-url="false">&larr; Back to Blog</a>
+    </div>
+    
+    <header>
+        <h1>Exploring Machine Learning in Photonics: A Sample Post</h1>
+        <div class="blog-meta">
+            Published on January 14, 2024
+            
+                • Tags: posts, machine learning, photonics, engineering
+            
+        </div>
+    </header>
+    
+    <div class="blog-content">
+        <h1>Introduction</h1>
+<p>This is a sample blog post demonstrating the rich markdown formatting capabilities of our 11ty-powered blog. You can write in simple markdown and it will be beautifully rendered with your existing site styling.</p>
+<h2>Rich Content Support</h2>
+<h3>Images</h3>
+<p>You can easily embed images with captions:</p>
+<p><img src="/pictures/system-diffusion.png" alt="Photonic system diagram" class="center"></p>
+<h3>Videos</h3>
+<p>Videos are also supported (though this is a placeholder):</p>
+<video controls>
+  <source src="/gifs/video_with_audio_4.gif" type="video/gif">
+  Your browser does not support the video tag.
+</video>
+<h3>Code Blocks</h3>
+<p>Here's some Python code with syntax highlighting:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+
+<span class="token keyword">def</span> <span class="token function">photonic_simulation</span><span class="token punctuation">(</span>wavelength<span class="token punctuation">,</span> refractive_index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    Simulate light propagation in a photonic crystal
+    """</span>
+    k <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> np<span class="token punctuation">.</span>pi <span class="token operator">/</span> wavelength
+    <span class="token keyword">return</span> k <span class="token operator">*</span> refractive_index
+
+<span class="token comment"># Example usage</span>
+wavelengths <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">800</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>  <span class="token comment"># nm</span>
+results <span class="token operator">=</span> <span class="token punctuation">[</span>photonic_simulation<span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token number">1.45</span><span class="token punctuation">)</span> <span class="token keyword">for</span> w <span class="token keyword">in</span> wavelengths<span class="token punctuation">]</span>
+
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>wavelengths<span class="token punctuation">,</span> results<span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span><span class="token string">'Wavelength (nm)'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">'Wave vector'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">'Photonic Crystal Dispersion'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<h3>Mathematical Expressions</h3>
+<p>You can include inline code like <code>numpy.array()</code> or <code>tensorflow.keras.Model()</code> easily.</p>
+<h3>Blockquotes</h3>
+<blockquote>
+<p>&quot;The best way to predict the future is to invent it.&quot; - Alan Kay</p>
+</blockquote>
+<p>This quote resonates with my approach to combining machine learning with photonics research.</p>
+<h3>Lists and Structure</h3>
+<p>Here are some key areas I'm exploring:</p>
+<ol>
+<li>
+<p><strong>Neural networks for photonic design</strong></p>
+<ul>
+<li>Optimization of waveguide structures</li>
+<li>Inverse design problems</li>
+<li>Real-time parameter tuning</li>
+</ul>
+</li>
+<li>
+<p><strong>Signal processing applications</strong></p>
+<ul>
+<li>Pattern recognition in optical signals</li>
+<li>Noise reduction algorithms</li>
+<li>Adaptive filtering techniques</li>
+</ul>
+</li>
+<li>
+<p><strong>Future directions</strong></p>
+<ul>
+<li>Integration with quantum photonics</li>
+<li>Edge computing applications</li>
+<li>Sustainable photonic systems</li>
+</ul>
+</li>
+</ol>
+<h3>Footnotes and Citations</h3>
+<p>Machine learning has revolutionized many fields<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>, and photonics is no exception. Recent advances in deep learning<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> have opened new possibilities for optical system design.</p>
+<p>The intersection of these fields presents unique challenges and opportunities<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>.</p>
+<h2>Conclusion</h2>
+<p>This blog setup allows for rich, academic-style writing with beautiful formatting that matches your existing site design. The markdown format makes writing posts simple and enjoyable.</p>
+<section class="footnotes">
+<div class="footnotes-title">Notes</div>
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>LeCun, Y., Bengio, Y., &amp; Hinton, G. (2015). Deep learning. <em>Nature</em>, 521(7553), 436-444. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). <em>Deep learning</em>. MIT Press. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>Molesky, S., Lin, Z., Piggott, A. Y., Jin, W., Vucković, J., &amp; Rodriguez, A. W. (2018). Inverse design in nanophotonics. <em>Nature Photonics</em>, 12(11), 659-670. <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+</article>

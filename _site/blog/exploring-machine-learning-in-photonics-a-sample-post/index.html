@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploring Machine Learning in Photonics: A Sample Post - Joel Tsuchitori</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
+    <style>
+        /* Blog-specific styles */
+        .blog-post {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .blog-post h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+        
+        .blog-meta {
+            color: var(--accent-color);
+            font-style: italic;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .blog-content h2 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-content h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-content video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .blog-content blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--secondary-color);
+        }
+        
+        .blog-content code {
+            background: var(--hover-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .blog-content pre {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        .blog-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        /* Footnotes styling */
+        .footnotes {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footnotes-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .footnotes-list {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .footnotes-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Image gallery for multiple images */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .back-to-blog {
+            margin-bottom: 2rem;
+        }
+        
+        .back-to-blog a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .back-to-blog a:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/resume.html">Resume</a></li>
+                <li><a href="/portfolio.html">Portfolio</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+<article class="blog-post">
+    <div class="back-to-blog">
+        <a href="/blog/">&larr; Back to Blog</a> | <a href="/">Home</a>
+    </div>
+    
+    <header>
+        <h1>Exploring Machine Learning in Photonics: A Sample Post</h1>
+        <div class="blog-meta">
+            Published on January 14, 2024
+            
+                • Tags: posts, machine learning, photonics, engineering
+            
+        </div>
+    </header>
+    
+    <div class="blog-content">
+        <h1>Introduction</h1>
+<p>This is a sample blog post demonstrating the rich markdown formatting capabilities of our 11ty-powered blog. You can write in simple markdown and it will be beautifully rendered with your existing site styling.</p>
+<h2>Rich Content Support</h2>
+<h3>Images</h3>
+<p>You can easily embed images with captions:</p>
+<p><img src="/pictures/system-diffusion.png" alt="Photonic system diagram" class="center"></p>
+<h3>Videos</h3>
+<p>Videos are also supported (though this is a placeholder):</p>
+<video controls>
+  <source src="/gifs/video_with_audio_4.gif" type="video/gif">
+  Your browser does not support the video tag.
+</video>
+<h3>Code Blocks</h3>
+<p>Here's some Python code with syntax highlighting:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+
+<span class="token keyword">def</span> <span class="token function">photonic_simulation</span><span class="token punctuation">(</span>wavelength<span class="token punctuation">,</span> refractive_index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    Simulate light propagation in a photonic crystal
+    """</span>
+    k <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> np<span class="token punctuation">.</span>pi <span class="token operator">/</span> wavelength
+    <span class="token keyword">return</span> k <span class="token operator">*</span> refractive_index
+
+<span class="token comment"># Example usage</span>
+wavelengths <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">800</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>  <span class="token comment"># nm</span>
+results <span class="token operator">=</span> <span class="token punctuation">[</span>photonic_simulation<span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token number">1.45</span><span class="token punctuation">)</span> <span class="token keyword">for</span> w <span class="token keyword">in</span> wavelengths<span class="token punctuation">]</span>
+
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>wavelengths<span class="token punctuation">,</span> results<span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span><span class="token string">'Wavelength (nm)'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">'Wave vector'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">'Photonic Crystal Dispersion'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<h3>Mathematical Expressions</h3>
+<p>You can include inline code like <code>numpy.array()</code> or <code>tensorflow.keras.Model()</code> easily.</p>
+<h3>Blockquotes</h3>
+<blockquote>
+<p>&quot;The best way to predict the future is to invent it.&quot; - Alan Kay</p>
+</blockquote>
+<p>This quote resonates with my approach to combining machine learning with photonics research.</p>
+<h3>Lists and Structure</h3>
+<p>Here are some key areas I'm exploring:</p>
+<ol>
+<li>
+<p><strong>Neural networks for photonic design</strong></p>
+<ul>
+<li>Optimization of waveguide structures</li>
+<li>Inverse design problems</li>
+<li>Real-time parameter tuning</li>
+</ul>
+</li>
+<li>
+<p><strong>Signal processing applications</strong></p>
+<ul>
+<li>Pattern recognition in optical signals</li>
+<li>Noise reduction algorithms</li>
+<li>Adaptive filtering techniques</li>
+</ul>
+</li>
+<li>
+<p><strong>Future directions</strong></p>
+<ul>
+<li>Integration with quantum photonics</li>
+<li>Edge computing applications</li>
+<li>Sustainable photonic systems</li>
+</ul>
+</li>
+</ol>
+<h3>Footnotes and Citations</h3>
+<p>Machine learning has revolutionized many fields<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>, and photonics is no exception. Recent advances in deep learning<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> have opened new possibilities for optical system design.</p>
+<p>The intersection of these fields presents unique challenges and opportunities<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>.</p>
+<h2>Conclusion</h2>
+<p>This blog setup allows for rich, academic-style writing with beautiful formatting that matches your existing site design. The markdown format makes writing posts simple and enjoyable.</p>
+<section class="footnotes">
+<div class="footnotes-title">Notes</div>
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>LeCun, Y., Bengio, Y., &amp; Hinton, G. (2015). Deep learning. <em>Nature</em>, 521(7553), 436-444. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). <em>Deep learning</em>. MIT Press. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>Molesky, S., Lin, Z., Piggott, A. Y., Jin, W., Vucković, J., &amp; Rodriguez, A. W. (2018). Inverse design in nanophotonics. <em>Nature Photonics</em>, 12(11), 659-670. <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+</article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set the year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Footer visibility control
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+        
+        window.addEventListener('scroll', () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+            if (nearBottom) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>

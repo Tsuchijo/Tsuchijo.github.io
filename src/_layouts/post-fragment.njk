@@ -1,0 +1,20 @@
+<!-- HTMX Fragment for loading into main site -->
+<article class="blog-post">
+    <div class="back-to-blog">
+        <a href="/blog/" hx-get="/blog/blog-content.html" hx-target="#main-content" hx-push-url="false">&larr; Back to Blog</a>
+    </div>
+    
+    <header>
+        <h1>{{ title }}</h1>
+        <div class="blog-meta">
+            Published on {{ date | dateDisplay }}
+            {% if tags %}
+                • Tags: {% for tag in tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}
+            {% endif %}
+        </div>
+    </header>
+    
+    <div class="blog-content">
+        {{ content | safe }}
+    </div>
+</article>

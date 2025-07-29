@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Joel Tsuchitori</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
+    <style>
+        /* Blog-specific styles */
+        .blog-post {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .blog-post h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+        
+        .blog-meta {
+            color: var(--accent-color);
+            font-style: italic;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .blog-content h2 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-content h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-content video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .blog-content blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--secondary-color);
+        }
+        
+        .blog-content code {
+            background: var(--hover-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .blog-content pre {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        .blog-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        /* Footnotes styling */
+        .footnotes {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footnotes-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .footnotes-list {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .footnotes-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Image gallery for multiple images */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .back-to-blog {
+            margin-bottom: 2rem;
+        }
+        
+        .back-to-blog a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .back-to-blog a:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/resume.html">Resume</a></li>
+                <li><a href="/portfolio.html">Portfolio</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+<div class="blog-post">
+    <h1>Blog</h1>
+    <p>Welcome to my blog where I share thoughts on engineering, machine learning, and physics.</p>
+    
+    <div class="posts-list">
+        
+            <article class="experience-item">
+                <h3><a href="/blog/exploring-machine-learning-in-photonics-a-sample-post/" class="project-link">Exploring Machine Learning in Photonics: A Sample Post</a></h3>
+                <div class="date">January 14, 2024</div>
+                
+                    <p>A demonstration of rich markdown formatting capabilities including images, videos, code, and citations.</p>
+                
+                
+                    <div style="margin-top: 1rem;">
+                        
+                            <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">posts</span>
+                        
+                            <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">machine learning</span>
+                        
+                            <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">photonics</span>
+                        
+                            <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">engineering</span>
+                        
+                    </div>
+                
+            </article>
+        
+    </div>
+</div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set the year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Footer visibility control
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+        
+        window.addEventListener('scroll', () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+            if (nearBottom) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>
