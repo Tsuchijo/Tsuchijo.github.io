@@ -3,6 +3,7 @@ title: "Exploring Machine Learning in Photonics: A Sample Post"
 date: 2024-01-15
 tags: ["machine learning", "photonics", "engineering"]
 excerpt: "A demonstration of rich markdown formatting capabilities including images, videos, code, and citations."
+permalink: /blog/{{ title | slug }}/index.html
 ---
 
 ## Introduction
