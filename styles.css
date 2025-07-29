@@ -415,11 +415,17 @@ p {
     }
 
     .portrait-container {
-        width: 100%;
+        max-width: 300px; /* Limit the maximum width of the image container */
+        width: 100%; /* Allow it to shrink below max-width */
+        margin: 0 auto; /* Center the image container */
         flex-basis: auto;
-        height: auto; /* Allow height to adjust based on content */
+        height: 0; /* Set height to 0 for padding-bottom hack */
         padding-bottom: 133.33%; /* Maintain 3:4 aspect ratio (height/width * 100) */
         position: relative; /* Needed for absolute positioning of the image */
+    }
+
+    .portrait-container p {
+        margin: 0; /* Remove default paragraph margins */
     }
 
     .portrait {
@@ -438,3 +444,4 @@ p {
         gap: 1rem; /* Adjust gap for smaller screens */
     }
 
+}
