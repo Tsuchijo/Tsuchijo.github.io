@@ -5,7 +5,7 @@ tags: ["machine learning", "photonics", "engineering"]
 excerpt: "A demonstration of rich markdown formatting capabilities including images, videos, code, and citations."
 ---
 
-# Introduction
+## Introduction
 
 This is a sample blog post demonstrating the rich markdown formatting capabilities of our 11ty-powered blog. You can write in simple markdown and it will be beautifully rendered with your existing site styling.
 

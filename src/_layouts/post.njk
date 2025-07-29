@@ -4,7 +4,7 @@ layout: base.njk
 
 <article class="blog-post">
     <div class="back-to-blog">
-        <a href="/blog/">&larr; Back to Blog</a> | <a href="/">Home</a>
+        <a href="/blog/" hx-get="/blog/blog-content.html" hx-target="#main-content" hx-push-url="false">&larr; Back to Blog</a> | <a href="/">Home</a>
     </div>
     
     <header>
