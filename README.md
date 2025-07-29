@@ -1,67 +1,82 @@
 # Joel Tsuchitori's Personal Website
 
-A personal portfolio and blog website built with 11ty (Eleventy) and HTMX, featuring markdown-based content management and automatic GitHub Pages deployment.
+A personal portfolio and blog website built with 11ty (Eleventy), featuring markdown-based content management and automatic GitHub Pages deployment.
 
 ## 🚀 Quick Start
 
 ### Local Development
 
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+1.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-2. **Build the site**:
-   ```bash
-   npm run build
-   ```
-
-3. **Serve locally**:
-   ```bash
-   npx serve .
-   ```
-   Then visit `http://localhost:3000`
+2.  **Serve locally**:
+    ```bash
+    npm run serve
+    ```
+    Then visit `http://localhost:8080` (or the port shown in your terminal).
 
 ### Development Commands
 
-| Command | Description |
-|---------|-------------|
-| `npm run build` | Build the site from markdown sources |
+| Command           | Description                                   |
+|-------------------|-----------------------------------------------|
+| `npm run build`   | Build the site to the `_site` directory       |
 | `npm run build:watch` | Build and watch for changes (live reload) |
-| `npm run serve` | 11ty development server with live reload |
-| `npm run clean` | Remove all generated files |
+| `npm run serve`   | 11ty development server with live reload      |
+| `npm run clean`   | Remove all generated files in `_site`         |
 
 ## 📁 Project Structure
 
 ```
 ├── src/                          # Source files (what you edit)
-│   ├── pages/                    # Main pages (About, Portfolio, Resume)
+│   ├── index.njk                 # Homepage redirect
+│   ├── pages/                    # Main pages (About, Resume, Portfolio listing)
 │   │   ├── about.md
-│   │   ├── portfolio.md
+│   │   ├── portfolio.html        # Portfolio listing page
+│   │   ├── portfolio/            # Individual portfolio project pages
+│   │   │   └── *.md
 │   │   └── resume.md
 │   ├── blog/
-│   │   └── posts/               # Blog posts in markdown
+│   │   ├── index.njk             # Blog listing page
+│   │   └── posts/                # Blog posts in markdown
 │   │       └── *.md
-│   └── _layouts/                # 11ty templates
-├── pictures/                    # Static images
-├── gifs/                       # Static GIFs
-├── styles.css                  # Main stylesheet
-├── index.html                  # Main HTMX page
-└── Generated files (ignored by git):
-    ├── about.html              # HTMX fragments
-    ├── portfolio.html
+│   └── _layouts/                 # 11ty templates
+│       ├── base.njk              # Base layout for all pages
+│       ├── standalone.njk        # Full HTML layout for standalone pages
+│       └── portfolio-item.njk    # Layout for individual portfolio items
+│       └── post.njk              # Layout for individual blog posts
+├── pictures/                     # Static images
+├── gifs/                         # Static GIFs
+├── styles.css                    # Main stylesheet
+├── .eleventy.js                  # Eleventy configuration
+├── package.json                  # Project dependencies and scripts
+└── _site/                        # Generated files (output directory, ignored by git)
+    ├── index.html                # Homepage redirect
+    ├── about.html
     ├── resume.html
-    └── blog/                   # Generated blog structure
+    ├── portfolio/
+    │   ├── index.html
+    │   └── *.html
+    └── blog/
+        ├── index.html
+        └── exploring-machine-learning-in-photonics:-a-sample-post/
+            └── index.html
 ```
 
 ## ✏️ Content Management
 
-### Main Pages (About, Portfolio, Resume)
+### Main Pages (About, Resume)
 
 Edit markdown files in `src/pages/`:
 - `src/pages/about.md`
-- `src/pages/portfolio.md` 
 - `src/pages/resume.md`
+
+### Portfolio Projects
+
+Create new `.md` files in `src/pages/portfolio/`:
+- Each file represents a single project.
+- Use `layout: portfolio-item.njk` in the front matter.
 
 ### Blog Posts
 
@@ -70,47 +85,42 @@ Create new `.md` files in `src/blog/posts/` with this format:
 ```markdown
 ---
 title: "Your Post Title"
-date: 2024-01-29
+date: YYYY-MM-DD
 tags: ["tag1", "tag2"]
 excerpt: "Brief description for the blog index"
+permalink: /blog/{{ title | slug }}/index.html
 ---
 
 Your markdown content here...
 
 ## Features supported:
-- Images: `![alt text](pictures/image.jpg)`
+- Images: `![alt text](/pictures/image.jpg)` (use absolute paths from site root)
 - Code blocks with syntax highlighting
 - Footnotes: `text[^1]` and `[^1]: Citation`
 - All standard markdown
 ```
 
-### Images
+### Images and GIFs
 
-- Place images in `/pictures/` directory
-- Reference in markdown: `![alt text](pictures/filename.jpg)`
-- For blog posts: `![alt text](../../pictures/filename.jpg)`
+- Place images in `/pictures/` directory and GIFs in `/gifs/`.
+- Reference in markdown using **absolute paths** from the site root:
+  - `![alt text](/pictures/filename.jpg)`
+  - `![alt text](/gifs/animation.gif)`
 
 ## 🔧 How It Works
 
 ### Architecture
 
-- **Main Site**: HTMX-powered single page application (`index.html`)
-- **Blog**: Standalone pages + HTMX integration
-- **Content**: Written in Markdown, processed by 11ty
-- **Styling**: Unified CSS with custom properties
+- **All Pages**: Now standalone HTML files, including navigation and footer.
+- **Homepage**: `index.html` in the root (`_site/index.html`) is a simple redirect to `/about.html`.
+- **Content**: Written in Markdown, processed by 11ty.
+- **Styling**: Unified CSS (`styles.css`).
 
 ### Build Process
 
-1. **11ty processes** markdown files in `src/`
-2. **Generates** HTML fragments for HTMX integration
-3. **Creates** standalone blog pages
-4. **Preserves** static assets (CSS, images, main HTML)
-
-### Dual Navigation
-
-- **Main pages** (About, Portfolio, Resume): HTMX fragments only
-- **Blog**: Full standalone functionality + HTMX integration
-- **Images/CSS**: Relative paths work for both local and production
+1.  **11ty processes** markdown and Nunjucks files from `src/`.
+2.  **Generates** full HTML files for all pages and posts into the `_site` directory.
+3.  **Copies** static assets (CSS, images, GIFs) from the root into `_site`.
 
 ## 🚀 Deployment
 
@@ -118,20 +128,17 @@ Your markdown content here...
 
 The site automatically deploys to GitHub Pages when you push to `main`:
 
-1. **Edit content** in `src/` directory
-2. **Commit and push** to GitHub
-3. **GitHub Actions** runs `npm run build` automatically
-4. **Site updates** in ~2-3 minutes
+1.  **Edit content** in `src/` directory.
+2.  **Commit and push** to GitHub.
+3.  **GitHub Actions** runs `npm run build` automatically.
+4.  **Site updates** in ~2-3 minutes.
 
 ### Manual Deployment
 
-If you need to deploy manually:
+If you need to build manually:
 
 ```bash
 npm run build
-git add .
-git commit -m "Update content"
-git push
 ```
 
 ## 🛠️ Troubleshooting
@@ -139,9 +146,9 @@ git push
 ### Local Development Issues
 
 **Styling/images broken locally?**
-- Ensure you've run `npm run build` first
-- Try clearing browser cache (Ctrl+Shift+R)
-- Check that `styles.css` and image files aren't empty
+- Ensure you are running the Eleventy development server: `npm run serve`.
+- Clear your browser cache (Ctrl+Shift+R or Cmd+Shift+R).
+- Verify that `styles.css`, `pictures/`, and `gifs/` are being copied to the `_site` directory during build (check `_site` contents).
 
 **Build failing?**
 ```bash
@@ -149,23 +156,11 @@ npm run clean  # Clean generated files
 npm run build  # Rebuild from scratch
 ```
 
-**Images corrupted?**
-```bash
-git checkout HEAD -- pictures/ gifs/  # Restore from git
-```
-
 ### File Management
 
-- **Never edit** generated files (`about.html`, `portfolio.html`, `resume.html`, `blog/`)
-- **Always edit** source files in `src/`
-- **Generated files** are in `.gitignore` and shouldn't be committed
-
-## 📝 Notes
-
-- **Local URLs**: Use relative paths (no leading `/`)
-- **Production**: Relative paths work on GitHub Pages too
-- **Caching**: Hard refresh (Ctrl+Shift+R) if changes don't appear
-- **Git**: Only source files are tracked, generated files are ignored
+- **Never edit** files directly in the `_site` directory.
+- **Always edit** source files in `src/`.
+- **Generated files** in `_site` are ignored by Git.
 
 ## 🔍 Key Files
 
