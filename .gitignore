@@ -5,7 +5,7 @@ node_modules/
 about.html
 portfolio.html
 resume.html
-blog/
+./blog
 
 # Logs
 npm-debug.log*
