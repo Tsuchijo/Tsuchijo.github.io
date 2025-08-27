@@ -445,3 +445,39 @@ p {
     }
 
 }
+
+.image-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.image-caption {
+  font-style: italic;
+  color: #666;
+  margin-top: 0.5rem;
+  font-size: 0.9em;
+}
+
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-small {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+}
+
+.image-medium {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+}
+
+.image-large {
+  max-width: 800px;
+  width: 100%;
+  height: auto;
+}

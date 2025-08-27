@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Hopper Data Structure</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #fff;
+            color: #000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .chest {
+            background: #ddd;
+            border: 2px solid #999;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 15px 0;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+        
+        .slot {
+            background: #eee;
+            border: 1px solid #999;
+            border-radius: 2px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .slot.filled {
+            background: #ccc;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button.remove {
+            background: #333;
+        }
+        
+        button.reset {
+            background: #777;
+        }
+        
+        .status {
+            text-align: center;
+            margin: 10px 0;
+            min-height: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .hopper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .hopper-icon {
+            width: 40px;
+            height: 40px;
+            background: #aaa;
+            border: 2px solid #777;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 500px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .chest {
+                gap: 5px;
+                padding: 8px;
+            }
+            
+            .slot {
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            button {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Minecraft Hopper Data Structure</h1>
+        
+        <div class="hopper">
+            <div class="hopper-icon">↓</div>
+        </div>
+        
+        <div class="chest" id="chest">
+            <div class="slot filled">A</div>
+            <div class="slot filled">B</div>
+            <div class="slot filled">C</div>
+            <div class="slot filled">D</div>
+            <div class="slot filled">E</div>
+        </div>
+        
+        <div class="status" id="status">Click an action to begin</div>
+        
+        <div class="controls">
+            <button id="addItem">Add Item</button>
+            <button id="takeFirst" class="remove">Remove Item</button>
+            <button id="reset" class="reset">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chest = document.getElementById('chest');
+            const status = document.getElementById('status');
+            const takeFirstBtn = document.getElementById('takeFirst');
+            const addItemBtn = document.getElementById('addItem');
+            const resetBtn = document.getElementById('reset');
+            
+            // Track items in the chest
+            let items = ['A', 'B', 'C', 'D', 'E'];
+            
+            function updateChest() {
+                const slots = chest.querySelectorAll('.slot');
+                slots.forEach((slot, index) => {
+                    // Clear the slot
+                    slot.textContent = '';
+                    slot.classList.remove('filled');
+                    
+                    // If we have an item at this position, add it
+                    if (index < items.length && items[index] !== null) {
+                        slot.textContent = items[index];
+                        slot.classList.add('filled');
+                    }
+                });
+            }
+            
+            function takeFirstItem() {
+                // Find the first non-null item
+                const firstIndex = items.findIndex(item => item !== null);
+                if (firstIndex === -1) {
+                    status.textContent = 'No items to remove!';
+                    return;
+                }
+                
+                const removedItem = items[firstIndex];
+                items[firstIndex] = null;
+                status.textContent = `Removed item: ${removedItem}`;
+                updateChest();
+            }
+            
+            function addNewItem() {
+                // Check if chest is full
+                if (items.filter(item => item !== null).length >= 5) {
+                    status.textContent = 'Chest is full!';
+                    return;
+                }
+                
+                // Find first empty slot
+                const emptyIndex = items.findIndex(item => item === null);
+                
+                if (emptyIndex !== -1) {
+                    // If there's an empty slot, fill it
+                    items[emptyIndex] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                    status.textContent = `Added item: ${items[emptyIndex]} to slot ${emptyIndex + 1}`;
+                } else {
+                    // If no empty slots, add to the end
+                    if (items.length < 5) {
+                        items.push(String.fromCharCode(65 + Math.floor(Math.random() * 26)));
+                        status.textContent = `Added item: ${items[items.length - 1]} to slot ${items.length}`;
+                    }
+                }
+                
+                updateChest();
+            }
+            
+            function resetChest() {
+                // Reset to initial state
+                items = ['A', 'B', 'C', 'D', 'E'];
+                status.textContent = 'Chest has been reset';
+                updateChest();
+            }
+            
+            // Event listeners
+            takeFirstBtn.addEventListener('click', takeFirstItem);
+            addItemBtn.addEventListener('click', addNewItem);
+            resetBtn.addEventListener('click', resetChest);
+            
+            // Initialize the chest
+            updateChest();
+        });
+    </script>
+</body>
+</html>
