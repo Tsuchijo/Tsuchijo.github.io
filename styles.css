@@ -499,3 +499,55 @@ p {
     height: 100%;
     border-radius: 8px; /* Optional: rounds the corners slightly */
   }
+
+/* Blog post preview styles */
+.blog-post-preview {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.blog-thumbnail {
+    flex: 0 0 150px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.blog-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.blog-thumbnail img:hover {
+    transform: scale(1.05);
+}
+
+.blog-post-content {
+    flex: 1;
+}
+
+/* Blog navigation styles */
+.blog-nav {
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.back-arrow {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.back-arrow:hover {
+    color: var(--accent-color);
+}

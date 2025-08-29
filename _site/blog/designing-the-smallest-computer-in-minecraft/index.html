@@ -5,37 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Designing the Smallest computer in Minecraft - Joel Tsuchitori</title>
     <base href="/">
+    
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Designing the Smallest computer in Minecraft">
+    <meta property="og:description" content="How I built the first Microcontroller in Minecraft.">
+    <meta property="og:type" content="article">
+    
+    <meta property="og:image" content="/pictures/Minecraft/FullComputerGlamourShot.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
 </head>
 <body>
-    <nav>
+    <nav class="blog-nav">
         <div class="container">
-            <ul>
-                <li><a href="/about.html">About</a></li>
-                <li><a href="/resume.html">Resume</a></li>
-                <li><a href="/portfolio/index.html">Portfolio</a></li>
-                <li><a href="/blog/index.html">Blog</a></li>
-            </ul>
+            <a href="/blog/index.html" class="back-arrow">← Back to Blog</a>
         </div>
     </nav>
 
     <main class="container">
-        
-<article class="blog-post">
-    <header>
-        <h1>Designing the Smallest computer in Minecraft</h1>
-        <div class="blog-meta">
-            Published on September 14, 2025
+        <article class="blog-post">
+            <header>
+                <h1>Designing the Smallest computer in Minecraft</h1>
+                <div class="blog-meta">
+                    Published on September 14, 2025
+                    
+                        • Tags: posts, Minecraft, Computer Engineering
+                    
+                </div>
+            </header>
             
-                • Tags: posts, Minecraft, Computer Engineering
-            
-        </div>
-    </header>
-    
-    <div class="blog-content">
-        <figure class="image-container">
+            <div class="blog-content">
+                
+<figure class="image-container">
   <img src="../../pictures/Minecraft/FullComputerGlamourShot.png" alt="The Full Computer" class="center-image image-small">
   <figcaption class="image-caption">The computer in its full glory</figcaption>
 </figure>
@@ -86,7 +92,7 @@
   <img src="../../pictures/Minecraft/InstructionMemoryStandalone.png" alt="InstructionMemory" class="center-image image-small">
   <figcaption class="image-caption">The instruction memory unit as implemented in Minecraft</figcaption>
 </figure>
-<p>One of the biggest challenges was the implementation of efficient instruction memory. In most Minecraft computers the program ROM is the simplest part, just design a single selectable memory unit and tile it until you run out of space. However that solution would not work under our space constraints, where a traditional ROM design would take up <a href="https://youtu.be/KWkGW0lS2-0?si=TdfNeCJEjiZqFw2V">our entire foot print to store just a couple of bytes</a>. Luckily Mojang recently gave us the perfect tool to solve this memory issue, the <a href="https://youtu.be/iQ0_6DOtgCA?si=bLfBe-_8sbI5x5fH">Jukebox Decoder</a>. The jukebox gives us an efficient way of creating an extremely dense ROM unit, as each music disc encodes a unique redstone signal strength between 1-15 when played, corresponding to a single 4-bit instruction per disc (we are missing the a 0 strength disc but 15 instructions is more than enough for our design).</p>
+<p>One of the biggest challenges was the implementation of efficient instruction memory. In most Minecraft computers the program ROM is the simplest part, just design a single selectable memory unit and tile it until you run out of space. However that solution would not work under our space constraints, where a traditional ROM design would take up <a href="https://youtu.be/KWkGW0lS2-0?si=TdfNeCJEjiZqFw2V">our entire foot print to store just a couple of bytes</a>. Luckily Mojang recently gave us the perfect tool to solve this memory issue, the <a href="https://youtu.be/iQ0_6DOtgCA?si=bLfBe-_8sbI5x5fH">Jukebox Decoder</a>. The jukebox gives us an efficient way of creating an extremely dense ROM unit, as each music disc encodes a unique redstone signal strength between 1-15 when played, corresponding to a single 4-bit instruction per disc (we are missing a 0 strength disc but 15 instructions is more than enough for our design).</p>
 <p>This allows us to store the entire program as a series of items in a chest, giving us an extremely dense form of program memory. However there are no free lunches, and there is good reason that, as far as I am aware, this is the first computer design I have seen that utilizes &quot;disc memory&quot; for the program memory. The problem with this design is that minecraft the only way to push or pull items from a chest is by using a hopper, which do not operate like any normal data structure in how they handle the order of items. Hoppers will always pull out the first item in chests, and will always push items into the first available slot in a chest, however when a item is pulled out, it does not &quot;move&quot; all the subsequent items up in queue, instead the item that was pulled out is simply replaced with an empty slot. This means that as long as the chest is fully emptied before the any items are inserted then it acts as a simple FIFO stack type structure, however if the chest is not fully emptied before the next item is inserted then the items will be out of order, and the program will not run correctly.</p>
 <p>The unusual nature of this memory imposes two large design constraints on the computer. First is that our memory is not random-access, we can only read instructions in the order that the program was written in. That means that we have no jumps in our program and it must be fully run to the end before it can loop back to the start or terminate. Second is that we must have a buffer chest to store all the instructions that have already been executed as we cannot simply loop back items into the same chest. This buffer must only empty when we are sure that the program chest is fully empty, otherwise we will end up with a corrupted program.</p>
 <p>These two constraints result some of the most important design decisions in the rest of the computer, and in particular the implementation of our instruction memory unit. The heavily limited control flow from the lack of ability to make arbitrary jumps means that instruction predication is the only way we can implement any kind of conditional logic. The need to implement some sort of predication (a conditional skip instruction) is the strictest timing constraint in our entire design, and as such the instruction memory must be design around that timing constraint.</p>
@@ -720,8 +726,8 @@ OUT
 <h2>Resources</h2>
 <p>Download files for the world, litematica schematic files, and the assembler and emulator can be found at the github: <a href="https://github.com/Tsuchijo/MC_Computer_Assembler/tree/main">https://github.com/Tsuchijo/MC_Computer_Assembler/tree/main</a>.</p>
 
-    </div>
-</article>
+            </div>
+        </article>
     </main>
 
     <footer>
@@ -731,10 +737,8 @@ OUT
     </footer>
 
     <script>
-        // Set the year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Footer visibility control
         let lastScrollTop = 0;
         const footer = document.querySelector('footer');
         

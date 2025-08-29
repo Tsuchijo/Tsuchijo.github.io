@@ -4,6 +4,7 @@ date: 2025-09-15
 tags: ["Minecraft", "Computer Engineering"]
 excerpt: "How I built the first Microcontroller in Minecraft."
 permalink: /blog/{{ title | slug }}/index.html
+og_image: /pictures/Minecraft/FullComputerGlamourShot.png
 ---
 
 <figure class="image-container">

@@ -11,18 +11,27 @@ permalink: /blog/index.html
     <div class="posts-list">
         {% for post in collections.posts %}
             <article class="experience-item">
-                <h3><a href="{{ post.url }}" class="project-link">{{ post.data.title }}</a></h3>
-                <div class="date">{{ post.date | dateDisplay }}</div>
-                {% if post.data.excerpt %}
-                    <p>{{ post.data.excerpt }}</p>
-                {% endif %}
-                {% if post.data.tags %}
-                    <div style="margin-top: 1rem;">
-                        {% for tag in post.data.tags %}
-                            <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">{{ tag }}</span>
-                        {% endfor %}
+                <div class="blog-post-preview">
+                    {% if post.data.og_image %}
+                        <div class="blog-thumbnail">
+                            <img src="{{ post.data.og_image }}" alt="{{ post.data.title }}">
+                        </div>
+                    {% endif %}
+                    <div class="blog-post-content">
+                        <h3><a href="{{ post.url }}" class="project-link">{{ post.data.title }}</a></h3>
+                        <div class="date">{{ post.date | dateDisplay }}</div>
+                        {% if post.data.excerpt %}
+                            <p>{{ post.data.excerpt }}</p>
+                        {% endif %}
+                        {% if post.data.tags %}
+                            <div style="margin-top: 1rem;">
+                                {% for tag in post.data.tags %}
+                                    <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </div>
             </article>
         {% endfor %}
     </div>

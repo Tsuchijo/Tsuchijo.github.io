@@ -1,19 +1,5 @@
 ---
-layout: standalone.njk
+layout: blog-post.njk
 ---
 
-<article class="blog-post">
-    <header>
-        <h1>{{ title }}</h1>
-        <div class="blog-meta">
-            Published on {{ date | dateDisplay }}
-            {% if tags %}
-                • Tags: {% for tag in tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}
-            {% endif %}
-        </div>
-    </header>
-    
-    <div class="blog-content">
-        {{ content | safe }}
-    </div>
-</article>
+{{ content | safe }}

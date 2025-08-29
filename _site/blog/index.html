@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Joel Tsuchitori</title>
     <base href="/">
+    
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Blog">
+    <meta property="og:description" content="Personal website and blog">
+    <meta property="og:type" content="website">
+    
+    
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
@@ -30,22 +37,31 @@
     <div class="posts-list">
         
             <article class="experience-item">
-                <h3><a href="/blog/designing-the-smallest-computer-in-minecraft/" class="project-link">Designing the Smallest computer in Minecraft</a></h3>
-                <div class="date">September 14, 2025</div>
-                
-                    <p>How I built the first Microcontroller in Minecraft.</p>
-                
-                
-                    <div style="margin-top: 1rem;">
+                <div class="blog-post-preview">
+                    
+                        <div class="blog-thumbnail">
+                            <img src="/pictures/Minecraft/FullComputerGlamourShot.png" alt="Designing the Smallest computer in Minecraft">
+                        </div>
+                    
+                    <div class="blog-post-content">
+                        <h3><a href="/blog/designing-the-smallest-computer-in-minecraft/" class="project-link">Designing the Smallest computer in Minecraft</a></h3>
+                        <div class="date">September 14, 2025</div>
                         
-                            <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">posts</span>
+                            <p>How I built the first Microcontroller in Minecraft.</p>
                         
-                            <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">Minecraft</span>
                         
-                            <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">Computer Engineering</span>
+                            <div style="margin-top: 1rem;">
+                                
+                                    <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">posts</span>
+                                
+                                    <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">Minecraft</span>
+                                
+                                    <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">Computer Engineering</span>
+                                
+                            </div>
                         
                     </div>
-                
+                </div>
             </article>
         
     </div>

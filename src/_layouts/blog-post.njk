@@ -21,19 +21,28 @@
     <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
 </head>
 <body>
-    <nav>
+    <nav class="blog-nav">
         <div class="container">
-            <ul>
-                <li><a href="/about.html">About</a></li>
-                <li><a href="/resume.html">Resume</a></li>
-                <li><a href="/portfolio/index.html">Portfolio</a></li>
-                <li><a href="/blog/index.html">Blog</a></li>
-            </ul>
+            <a href="/blog/index.html" class="back-arrow">← Back to Blog</a>
         </div>
     </nav>
 
     <main class="container">
-        {{ content | safe }}
+        <article class="blog-post">
+            <header>
+                <h1>{{ title }}</h1>
+                <div class="blog-meta">
+                    Published on {{ date | dateDisplay }}
+                    {% if tags %}
+                        • Tags: {% for tag in tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}
+                    {% endif %}
+                </div>
+            </header>
+            
+            <div class="blog-content">
+                {{ content | safe }}
+            </div>
+        </article>
     </main>
 
     <footer>
@@ -43,10 +52,8 @@
     </footer>
 
     <script>
-        // Set the year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Footer visibility control
         let lastScrollTop = 0;
         const footer = document.querySelector('footer');
         
