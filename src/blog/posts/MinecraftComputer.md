@@ -1,5 +1,5 @@
 ---
-title: "Designing the Smallest computer in Minecraft"
+title: "Designing the Smallest Computer in Minecraft"
 date: 2025-08-29
 tags: ["Minecraft", "Computer Engineering"]
 excerpt: "How I built the first Microcontroller in Minecraft."
