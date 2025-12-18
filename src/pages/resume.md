@@ -33,8 +33,13 @@ Grade Average: 86.1%
 
 <div class="experience-item">
 
+### Neuralink
+*October 2025 - Present*
+**Robotics Software Engineer**
+- Building a rust based software stack for an advanced surgery robot
+
 ### Geophysical Inversion Facility
-*June 2024 – Present*  
+*June 2025 – October 2025*  
 **Lab Research Assistant**
 
 - Contributed to SimPEG, a state of the art open source library for geophysical simulation and inversion

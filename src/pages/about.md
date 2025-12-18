@@ -15,7 +15,7 @@ permalink: /about.html
 
 # Joel Tsuchitori
 
-Engineering Physics student at UBC with a focus on Machine Learning and Signal Processing. Currently exploring the intersections of AI, robotics, and physics.
+Building robotics and software at Neuralink. UBC Engineering physics graduate with an interest in robotics, signal processing, physics, and music.
 
 <div class="contact-links">
 <a href="mailto:TsuchitoriJoel@gmail.com">Email</a>

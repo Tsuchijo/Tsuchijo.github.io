@@ -551,3 +551,159 @@ p {
 .back-arrow:hover {
     color: var(--accent-color);
 }
+
+/* Table of Contents styles */
+.table-of-contents {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-left: 3px solid var(--accent-color);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.toc-title {
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: normal;
+}
+
+/* Override global nav ul flex display for TOC */
+.table-of-contents ul,
+.table-of-contents .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block; /* Override flex from nav ul */
+    flex-direction: column; /* Ensure vertical layout */
+}
+
+.toc-list.toc-nested {
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--border-color);
+}
+
+.toc-item {
+    margin-bottom: 0.5rem;
+}
+
+.toc-link {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-block;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.toc-link:hover {
+    color: var(--accent-color);
+}
+
+.toc-level-2 .toc-link {
+    font-weight: 500;
+}
+
+.toc-level-3 .toc-link {
+    font-size: 0.95em;
+    padding-left: 0.5rem;
+}
+
+.toc-level-4 .toc-link {
+    font-size: 0.9em;
+    padding-left: 1rem;
+}
+
+/* Heading anchor styles */
+.heading-anchor {
+    opacity: 0;
+    margin-left: 0.5rem;
+    text-decoration: none;
+    color: var(--accent-color);
+    transition: opacity 0.2s ease;
+    font-size: 0.8em;
+}
+
+h2:hover .heading-anchor,
+h3:hover .heading-anchor,
+h4:hover .heading-anchor {
+    opacity: 1;
+}
+
+.heading-anchor:hover {
+    opacity: 1;
+    color: var(--primary-color);
+}
+
+/* Make heading text visible in anchor links */
+.heading-anchor span {
+    opacity: 1 !important;
+    color: inherit;
+}
+
+/* Resume-specific heading styles - make headings bold and visible */
+.resume-section h2,
+.resume-section h3 {
+    font-weight: bold !important;
+    color: var(--primary-color) !important;
+}
+
+/* Make heading anchors fully visible in resume sections */
+.resume-section .heading-anchor {
+    opacity: 1 !important;
+    color: var(--primary-color) !important;
+    margin-left: 0;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.resume-section .heading-anchor:hover {
+    color: var(--accent-color) !important;
+}
+
+.resume-section h2 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.resume-section h3 {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Make job titles (strong tags) bold and readable */
+.experience-item strong {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.1em;
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive adjustments for TOC */
+@media (max-width: 768px) {
+    .table-of-contents {
+        padding: 1rem;
+    }
+    
+    .toc-title {
+        font-size: 1.1rem;
+    }
+    
+    .toc-list.toc-nested {
+        margin-left: 1rem;
+        padding-left: 0.75rem;
+    }
+}
