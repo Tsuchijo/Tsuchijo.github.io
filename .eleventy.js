@@ -9,6 +9,7 @@ module.exports = function(eleventyConfig) {
   let markdownItFootnote = require("markdown-it-footnote");
   let markdownItAttrs = require("markdown-it-attrs");
   let markdownItAnchor = require("markdown-it-anchor");
+  let markdownItKatex = require("markdown-it-katex");
   
   let options = {
     html: true,
@@ -25,7 +26,8 @@ module.exports = function(eleventyConfig) {
         safariReaderFix: true
       }),
       level: [2, 3, 4] // Only generate anchors for h2, h3, h4
-    });
+    })
+    .use(markdownItKatex);
   
   // Customize footnote rendering to match your design
   markdownLib.renderer.rules.footnote_block_open = () => (

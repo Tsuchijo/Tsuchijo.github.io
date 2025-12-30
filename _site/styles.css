@@ -23,7 +23,7 @@ body {
     padding: 0;
     min-height: 100vh;
     position: relative;
-    padding-bottom: 60px; /* Space for footer */
+    padding-bottom: 120px; /* Extra space for footer so it doesn't block content */
 }
 
 .container {
@@ -509,7 +509,7 @@ p {
 
 .blog-thumbnail {
     flex: 0 0 150px;
-    height: 100px;
+    height: 150px;
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -623,51 +623,59 @@ p {
     padding-left: 1rem;
 }
 
-/* Heading anchor styles */
+/* Heading anchor styles - keep headers always visible */
 .heading-anchor {
-    opacity: 0;
-    margin-left: 0.5rem;
+    margin-left: 0;
     text-decoration: none;
-    color: var(--accent-color);
-    transition: opacity 0.2s ease;
-    font-size: 0.8em;
+    color: inherit;
+    transition: color 0.2s ease;
 }
 
-h2:hover .heading-anchor,
-h3:hover .heading-anchor,
-h4:hover .heading-anchor {
-    opacity: 1;
+.heading-anchor span {
+    color: inherit;
 }
 
 .heading-anchor:hover {
-    opacity: 1;
-    color: var(--primary-color);
+    color: var(--accent-color);
 }
 
-/* Make heading text visible in anchor links */
-.heading-anchor span {
-    opacity: 1 !important;
-    color: inherit;
+/* KaTeX: ensure only one visible rendering of equations - hide HTML rendering, show MathML */
+.katex-html {
+    display: none !important;
+}
+
+/* Ensure the MathML rendering is visible */
+.katex-mathml {
+    display: inline-block !important;
+}
+
+/* KaTeX equation styling - larger font and centered */
+.katex {
+    font-size: 1.0em !important;
+}
+
+.katex-display {
+    font-size: 1.0em !important;
+    text-align: center;
+    margin: 1.5rem auto !important;
+    display: block;
+    width: 100%;
+    background-color: var(--hover-bg);
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    border-left: 3px solid var(--accent-color);
+}
+
+/* Center block equations in paragraphs */
+p > .katex-display {
+    margin: 1.5rem auto !important;
 }
 
 /* Resume-specific heading styles - make headings bold and visible */
 .resume-section h2,
 .resume-section h3 {
-    font-weight: bold !important;
-    color: var(--primary-color) !important;
-}
-
-/* Make heading anchors fully visible in resume sections */
-.resume-section .heading-anchor {
-    opacity: 1 !important;
-    color: var(--primary-color) !important;
-    margin-left: 0;
-    font-size: inherit;
-    font-weight: inherit;
-}
-
-.resume-section .heading-anchor:hover {
-    color: var(--accent-color) !important;
+    font-weight: bold;
+    color: var(--primary-color);
 }
 
 .resume-section h2 {
