@@ -38,6 +38,10 @@ Grade Average: 86.1%
 **Robotics Software Engineer**
 - Building a rust based software stack for an advanced surgery robot
 
+</div>
+
+<div class="experience-item">
+
 ### Geophysical Inversion Facility
 *June 2025 – October 2025*  
 **Lab Research Assistant**
