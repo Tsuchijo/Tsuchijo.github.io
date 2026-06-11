@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Design and Build a Gas Dynamic Laser - Joel Tsuchitori</title>
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="How to Design and Build a Gas Dynamic Laser">
+    <meta property="og:description" content="The basics physics and engineering behind designing a rocket powered laser">
+    <meta property="og:type" content="article">
+    
+    <meta property="og:image" content="/pictures/Minecraft/FullComputerGlamourShot.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
+</head>
+<body>
+    <nav class="blog-nav">
+        <div class="container">
+            <a href="/blog/index.html" class="back-arrow">← Back to Blog</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <article class="blog-post">
+            <header>
+                <h1>How to Design and Build a Gas Dynamic Laser</h1>
+                <div class="blog-meta">
+                    Published on June 9, 2026
+                    
+                        • Tags: posts, Physics, Optics, Gas Dynamics, Simulation, Engineering
+                    
+                </div>
+            </header>
+            
+            
+            
+                <nav class="table-of-contents" aria-label="Table of Contents">
+<h2 class="toc-title">Table of Contents</h2>
+<ul class="toc-list">
+<li class="toc-item toc-level-2">
+<a href="#introduction" class="toc-link">Introduction</a>
+</li>
+<li class="toc-item toc-level-2">
+<a href="#physics" class="toc-link">Physics</a>
+<ul class="toc-list toc-nested">
+<li class="toc-item toc-level-3">
+<a href="#basics-of-gas-lasers" class="toc-link">Basics of Gas Lasers</a>
+<ul class="toc-list toc-nested">
+<li class="toc-item toc-level-4">
+<a href="#population-inversion" class="toc-link">Population Inversion</a>
+</li>
+<li class="toc-item toc-level-4">
+<a href="#co2-lasers" class="toc-link">CO2 Lasers</a>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-level-3">
+<a href="#thermal-population-inversion" class="toc-link">Thermal Population Inversion</a>
+</li>
+<li class="toc-item toc-level-3">
+<a href="#simulation" class="toc-link">Simulation</a>
+</li>
+<li class="toc-item toc-level-3">
+<a href="#performance-model" class="toc-link">Performance Model</a>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-level-2">
+<a href="#design" class="toc-link">Design</a>
+<ul class="toc-list toc-nested">
+<li class="toc-item toc-level-3">
+<a href="#gas-generator" class="toc-link">Gas Generator</a>
+</li>
+<li class="toc-item toc-level-3">
+<a href="#nozzle" class="toc-link">Nozzle</a>
+</li>
+<li class="toc-item toc-level-3">
+<a href="#diffuser" class="toc-link">Diffuser</a>
+</li>
+<li class="toc-item toc-level-3">
+<a href="#optics" class="toc-link">Optics</a>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-level-2">
+<a href="#my-design" class="toc-link">My Design</a>
+<ul class="toc-list toc-nested">
+<li class="toc-item toc-level-3">
+<a href="#demo" class="toc-link">Demo</a>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-level-2">
+<a href="#references" class="toc-link">References</a>
+</li>
+</ul>
+</nav>
+
+            
+            
+            <div class="blog-content">
+                
+<figure class="image-container">
+  <img src="../../pictures/Minecraft/FullComputerGlamourShot.png" alt="Homemade GDL" class="center-image image-small">
+  <figcaption class="image-caption">My Homemade GDL</figcaption>
+</figure>
+<h2 id="introduction" tabindex="-1"><a class="heading-anchor" href="#introduction"><span>Introduction</span></a></h2>
+<p>In the 1970's gripped in the heart of the cold war American and Soviet scientists pushed the boundaries of the laws of physics to design advanced weapons and countermeasures to try and gain the upper hand. From even the first days after the invention of the first laser both sides raced to build more and more powerful lasers to fuel powerful directed energy weapons to gain an upper hand in a theoretical nuclear exchange that thankfully never came to pass. Among this early mania to design the most powerful lasers ever made the Gas Dynamic Laser was invented, a unique and bizarre form of laser that resembles a rocket engine more than a traditional laser. Born out of the same physics and laboratory used to develop the heat shields used in the Apollo program the GDL appears to break all the rules of lasers; achieving a population inversion through pure thermodynamics, powered purely by combustion, and able to achieve power densities beyond anything else.</p>
+<p>While today it has been superseded simpler fiber lasers and more poweful chemical lasers, I have been fascinated by this bizarre laser architecture for years. Given modern advances in manufacturing processes, computing, as well as a burgeoning liquid rocketry community, I believe that today it is perfectly achievable for a hobbyist to build one of these one their own. What follows is a short overview of my research as well as some advice and guidelines for constructing your own GDL.</p>
+<h2 id="physics" tabindex="-1"><a class="heading-anchor" href="#physics"><span>Physics</span></a></h2>
+<p>The physics behind gas dynamic lasers are simultaneously what makes them interesting to me as well as what has made them historically so hard to design. A gas dynamic laser combines multiple disparate fields of physics which rarely interact including aerodynamics, thermodynamics, electromagnetism and optics, as well as a healthy dose of mechanical engineering to build one.</p>
+<p>I will try to make my brief explanation as approachable as possible to anyone, however it is reccomended that one have atleast a background in physics if you really want to understand the underlying physical processes. My explanation will be by no means exhaustive and if you want a more definitive in depth source I would heavily reccomend Andersons excellent 1976 text.</p>
+<h3 id="basics-of-gas-lasers" tabindex="-1"><a class="heading-anchor" href="#basics-of-gas-lasers"><span>Basics of Gas Lasers</span></a></h3>
+<p>To understand a gas dynamic laser one must first understand the simpler model of a gas laser. Luckily the most common form of gas dynamic laser is a CO2-N2 based laser, which shares many of the same physical properties of the common CO2 laser used often for hobby and professional laser cutters</p>
+<h4 id="population-inversion" tabindex="-1"><a class="heading-anchor" href="#population-inversion"><span>Population Inversion</span></a></h4>
+<p>Every laser, no matter how exotic, relies on the same principle: Given a collection of atoms or molecules with quantized energy levels (either energy level of electrons in an atoms orbit, or the vibrational modes of a molecule), if one can push more of the said states into a higher level than a lower level they will amplify and intensify light energy as it passes through the medium.</p>
+<p>This amplification effect is known as <em>stimulated emission</em>, an effect Einstein predicted in 1917 and the one that gives the laser its acronym (Light Amplification by Stimulated Emission of Radiation). When a molecule sits in an excited state and a photon of the right wavelength which exactly matches the energy of that state passes by, the photon can be absorbed and re-emitted twicefold by the molecule dropping down to a lower state and emitting a second photon, identical in frequency, phase, and direction to the first. If one were to create a bulk material of molecules in this state you would have a system which would exponentially amplify any light which passed through it.</p>
+<p>The catch is that the reverse process, <em>absorption</em> can also happen: a passing photon can just as easily be swallowed by a molecule sitting in the lower state, kicking it up to the excited one and converting that photon into potential energy stored in the molecule. In a normal gas at thermal equilibrium there are always more molecules in the lower state than the upper one, so absorption wins and a beam of light is attenuated rather than amplified. The relative populations of two states separated by an energy gap (\Delta E) at a temperature (T) follow the Boltzmann distribution:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><msub><mi>N</mi><mrow><mi>u</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>r</mi></mrow></msub></mrow><mrow><msub><mi>N</mi><mrow><mi>l</mi><mi>o</mi><mi>w</mi><mi>e</mi><mi>r</mi></mrow></msub></mrow></mfrac><mo>=</mo><mi>exp</mi><mrow><mo fence="true">(</mo><mo>−</mo><mfrac><mrow><mi mathvariant="normal">Δ</mi><mi>E</mi></mrow><mrow><msub><mi>k</mi><mi>B</mi></msub><mi>T</mi></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\frac{N_{upper}}{N_{lower}} = \exp\left(-\frac{\Delta E}{k_B T}\right)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.45em;"></span><span class="strut bottom" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">u</span><span class="mord mathit">p</span><span class="mord mathit">p</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mrel">=</span><span class="mop">exp</span><span class="minner displaystyle textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord">−</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03148em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathrm">Δ</span><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span></span></span></p>
+<p>Since the exponent is always negative for a gas in equilibrium, the upper state is always less populated than the lower one. To get net amplification you need to flip this around so that the upper state is <em>more</em> populated than the lower state, a condition called a <strong>population inversion</strong>. Notice that no positive, finite temperature can ever satisfy this in equilibrium; a population inversion is fundamentally a <em>non-equilibrium</em> state, and achieving and maintaining one is the central problem of every laser. In fact in early laser literature this state is known as <em>negative temperatore</em> (a more evocative, if less self explanatory name for the state).</p>
+<h4 id="co2-lasers" tabindex="-1"><a class="heading-anchor" href="#co2-lasers"><span>CO2 Lasers</span></a></h4>
+<p>When most people picture a laser they imagine electrons jumping between energy levels in an atom, as in a helium-neon or ruby laser. Afterall that is the traditional first explanation any undergrad would encounter. But molecules can store energy in other ways too. A molecule made of two or more atoms can rotate, and crucially it can <em>vibrate</em>, with its atoms oscillating back and forth as if connected by tiny springs. These vibrations are also quantized, meaning the molecule can only vibrate with certain discrete amounts of energy, and the gaps between these vibrational energy levels happen to correspond to photons in the infrared part of the spectrum.</p>
+<p>A <strong>vibrational laser</strong> is simply a laser whose population inversion lives between two of these molecular vibrational states rather than between electronic states. Because vibrational energy gaps are small compared to electronic ones, the photons they emit are low energy and long wavelength, deep in the infrared. This also turns out to make them remarkably efficient: less of the input energy is wasted, and a much larger fraction of it can come out as useful light. That efficiency is exactly why vibrational lasers, and the CO<sub>2</sub> laser in particular, became the workhorses of high power laser engineering.</p>
+<p>The carbon dioxide laser is the most important vibrational laser ever built, and it is the molecule at the heart of nearly every gas dynamic laser. A CO<sub>2</sub> molecule is linear, a carbon atom flanked by two oxygens, and it has three distinct ways to vibrate, called its <strong>normal modes</strong>:</p>
+<ul>
+<li>The <strong>symmetric stretch</strong>, where both oxygen atoms move outward and inward together.</li>
+<li>The <strong>bending mode</strong>, where the molecule flexes away from a straight line.</li>
+<li>The <strong>asymmetric stretch</strong>, where one oxygen moves in while the other moves out.</li>
+</ul>
+<p>The asymmetric stretch mode is the special one. A molecule excited into this mode sits at a relatively high vibrational energy, and it can drop down into the symmetric stretch (or the bending mode) while emitting a photon. The transition from the asymmetric stretch down to the symmetric stretch produces the famous <strong>10.6 μm</strong> infrared line that CO<sub>2</sub> lasers are known for. So if we can arrange for more CO<sub>2</sub> molecules to be sitting in the asymmetric stretch state than in the symmetric stretch state, we have our population inversion and we have a laser.</p>
+<p>There are two features of CO<sub>2</sub> that make this practical. First, the upper laser level (the asymmetric stretch) is <em>long lived</em>, meaning a molecule will happily sit there for a relatively long time before spontaneously decaying, giving us time to build up a large population. Second, the lower laser level empties quickly, draining away through collisions so it does not clog up and destroy the inversion. A long lived upper level and a fast draining lower level are the ideal recipe for a population inversion.</p>
+<p>In practice CO<sub>2</sub> lasers almost never use pure carbon dioxide. They use a mixture, and the most important additive is <strong>nitrogen</strong> (N<sub>2</sub>). Nitrogen is a simple diatomic molecule with a single vibrational mode, and by a fortunate coincidence of nature the energy of its first vibrational level is almost exactly equal to the energy of the CO<sub>2</sub> asymmetric stretch. This near perfect match means that an excited nitrogen molecule colliding with a ground state CO<sub>2</sub> molecule can hand over its vibrational energy almost losslessly, kicking the CO<sub>2</sub> straight into its upper laser level. Nitrogen therefore acts as an energy reservoir and a pump: it is easy to excite in bulk, it holds that energy for a long time because a lone N<sub>2</sub> molecule has no easy way to radiate it away, and it feeds it efficiently into the CO<sub>2</sub>. Most CO<sub>2</sub> laser mixtures also include helium, which helps drain the lower laser level and conduct heat away.</p>
+<p>In a conventional CO<sub>2</sub> laser this nitrogen is excited by running an electric discharge through the gas. The genius of the gas dynamic laser, as we will see next, is that it dispenses with the electric discharge entirely and excites the nitrogen with nothing but heat, then exploits the physics of a supersonic nozzle to turn that heat into a population inversion.</p>
+<h3 id="thermal-population-inversion" tabindex="-1"><a class="heading-anchor" href="#thermal-population-inversion"><span>Thermal Population Inversion</span></a></h3>
+<h3 id="simulation" tabindex="-1"><a class="heading-anchor" href="#simulation"><span>Simulation</span></a></h3>
+<h3 id="performance-model" tabindex="-1"><a class="heading-anchor" href="#performance-model"><span>Performance Model</span></a></h3>
+<h2 id="design" tabindex="-1"><a class="heading-anchor" href="#design"><span>Design</span></a></h2>
+<h3 id="gas-generator" tabindex="-1"><a class="heading-anchor" href="#gas-generator"><span>Gas Generator</span></a></h3>
+<h3 id="nozzle" tabindex="-1"><a class="heading-anchor" href="#nozzle"><span>Nozzle</span></a></h3>
+<h3 id="diffuser" tabindex="-1"><a class="heading-anchor" href="#diffuser"><span>Diffuser</span></a></h3>
+<h3 id="optics" tabindex="-1"><a class="heading-anchor" href="#optics"><span>Optics</span></a></h3>
+<h2 id="my-design" tabindex="-1"><a class="heading-anchor" href="#my-design"><span>My Design</span></a></h2>
+<h3 id="demo" tabindex="-1"><a class="heading-anchor" href="#demo"><span>Demo</span></a></h3>
+<h2 id="references" tabindex="-1"><a class="heading-anchor" href="#references"><span>References</span></a></h2>
+
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+        
+        window.addEventListener('scroll', () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+            if (nearBottom) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>
