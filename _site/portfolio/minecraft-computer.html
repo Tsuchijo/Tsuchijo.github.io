@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World&#39;s Smallest Minecraft Computer - Joel Tsuchitori</title>
+    <base href="/">
+    
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="World&#39;s Smallest Minecraft Computer">
+    <meta property="og:description" content="Personal website and blog">
+    <meta property="og:type" content="website">
+    
+    
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/pictures/favicon-design.svg" type="image/svg+xml">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/resume.html">Resume</a></li>
+                <li><a href="/portfolio/index.html">Portfolio</a></li>
+                <li><a href="/blog/index.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+<article class="blog-post">
+    <header>
+        <h1>World&#39;s Smallest Minecraft Computer</h1>
+    </header>
+    
+    <div class="blog-content">
+        <div class="portfolio-content">
+<div class="media-gallery">
+<p><img src="/pictures/Minecraft/FullComputerGlamourShot.png" alt="The Full Computer">
+<em>The MC² computer in its full glory</em></p>
+<p><img src="/pictures/Minecraft/MC14500.jpg" alt="MC14500B Chip">
+<em>The MC14500B chip that inspired the MC² design</em></p>
+<p><img src="/pictures/Minecraft/MCMC.png" alt="Block Diagram">
+<em>Block diagram of the MC² overall architecture</em></p>
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/QZvOWySDMe8"
+          frameborder="0" allowfullscreen>
+  </iframe>
+</div>
+<p><em>Simple demonstration program summing two 4-bit numbers</em></p>
+</div>
+<div class="project-details">
+<h3 id="overview" tabindex="-1"><a class="heading-anchor" href="#overview"><span>Overview</span></a></h3>
+<p>Built the smallest turing complete computer in Minecraft, designed to be simple enough for survival mode construction. The MC² (MineCraft MicroController) is a 1-bit Harvard architecture computer inspired by the 1970's Motorola MC14500B logic controller chip, featuring a 4-bit music disc encoded ISA and fitting in a footprint barely larger than a chunk.</p>
+<h3 id="key-features" tabindex="-1"><a class="heading-anchor" href="#key-features"><span>Key Features</span></a></h3>
+<ul>
+<li>4-bit music disc encoded instruction set with 15 instructions</li>
+<li>1-bit internal register with 2 additional flags for control flow</li>
+<li>8 I/O ports for interfacing with peripherals</li>
+<li>Optional infinitely expandable tape memory unit for turing complete operation</li>
+<li>14 game tick (0.7 second) clock cycle</li>
+<li>1458 instruction program memory (182 bytes)</li>
+<li>Compact footprint of 14x12x17 blocks (excluding tape memory)</li>
+</ul>
+<h3 id="technical-details" tabindex="-1"><a class="heading-anchor" href="#technical-details"><span>Technical Details</span></a></h3>
+<ul>
+<li>Designed novel jukebox-based instruction memory system using music discs as dense ROM</li>
+<li>Implemented shulker box loader/unloader system for 27x faster program reset</li>
+<li>Created predication-based control flow system inspired by MOVfuscator</li>
+<li>Developed custom assembler with recursive macro system in C++</li>
+<li>Used innovative slimestone tower design for compact vertical signal transmission</li>
+<li>Implemented dual tape memory system for working memory and program counter</li>
+</ul>
+<h3 id="technologies-%26-techniques" tabindex="-1"><a class="heading-anchor" href="#technologies-%26-techniques"><span>Technologies &amp; Techniques</span></a></h3>
+<ul>
+<li>Redstone circuit design and optimization</li>
+<li>Computer architecture principles (Harvard architecture, pipelining, predication)</li>
+<li>Custom instruction set architecture (ISA) design</li>
+<li>Assembly language and compiler/assembler development</li>
+<li>C++ for tooling (assembler/emulator)</li>
+<li>Python for worldedit automation scripts</li>
+</ul>
+<h3 id="resources" tabindex="-1"><a class="heading-anchor" href="#resources"><span>Resources</span></a></h3>
+<ul>
+<li><a href="https://github.com/Tsuchijo/MC_Computer_Assembler/tree/main">GitHub Repository</a> - Assembler, emulator, and world download</li>
+<li><a href="/blog/designing-the-smallest-computer-in-minecraft/">Full Blog Post</a> - Detailed technical writeup</li>
+</ul>
+</div>
+</div>
+
+    </div>
+</article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Joel Tsuchitori. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set the year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Footer visibility control
+        let lastScrollTop = 0;
+        const footer = document.querySelector('footer');
+        
+        window.addEventListener('scroll', () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+            if (nearBottom) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>

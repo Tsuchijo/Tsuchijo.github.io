@@ -2,7 +2,7 @@
 title: Frequency Domain Electromagnetic UXO Detector
 layout: portfolio-item.njk
 permalink: /portfolio/uxo-detector.html
-date: 2024-04-03
+date: 2025-05-01
 description: A capstone project to build a frequency domain electromagnetic survey device for UXO detection.
 tags: ["geophysics", "UXO", "electromagnetics", "AI", "machine learning", "engineering physics"]
 ---

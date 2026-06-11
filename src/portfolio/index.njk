@@ -1,0 +1,33 @@
+---
+layout: standalone.njk
+title: Portfolio
+permalink: /portfolio/index.html
+---
+
+<div class="blog-post">
+    <h1>Portfolio</h1>
+    <p>A collection of my projects and work across computer engineering, AI/ML, geophysics, and more.</p>
+
+    <div class="posts-list">
+        {% for item in collections.portfolio %}
+            <article class="experience-item">
+                <div class="blog-post-preview">
+                    <div class="blog-post-content">
+                        <h3><a href="{{ item.url }}" class="project-link">{{ item.data.title }}</a></h3>
+                        <div class="date">{{ item.date | dateDisplay }}</div>
+                        {% if item.data.description %}
+                            <p>{{ item.data.description }}</p>
+                        {% endif %}
+                        {% if item.data.tags %}
+                            <div style="margin-top: 1rem;">
+                                {% for tag in item.data.tags %}
+                                    <span style="background: var(--hover-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.9rem; margin-right: 0.5rem;">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</div>
