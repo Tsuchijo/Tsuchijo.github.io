@@ -297,7 +297,15 @@ Overall the simulation is still limited but provides a solid foundation for my d
 
 ## Design
 
-As can be seen above, making a gas dynamic laser is complex work. Even the physics alone is daunting, let alone the complex multidisciplinary design work required to get one working. To turn the simulated design into reality four separate components must be designed, each of which have interlinking performance and requirments and numerous subcomponents listed here:
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/basic_gdl.png" alt="Basic Architecture of a Gas dynamic Laser" class="center-image image-large">
+  <figcaption class="image-caption">The basic architecture of a gas dynamic laser. Like a rocket engine it has a fuel oxidizer combustion chamber which then goes to a supersonic nozzle. Unlike a rocket engine, there as a series of small nozzles instead of one large one, as well as the addition of optics to extract laser energy and a diffuser to exhaust it into the atmosphere </figcaption>
+</figure>
+
+In some sense a gas dynamic laser is just a rocket powered lasers - they share many components such as combustion powered converging diverging nozzles, high pressure air fuel combustion chambers, and thus share many of the same design techniques. However they are not one hundred percent alike, you can't just plug and off the shelf motor into some laser optics and go. Whereas a rocket engine wishes to simply maximize the amount of thrust which can be extracted from the fuel mixture, a gas dynamic laser is attempting to coordinate a careful balance of combustion conditions and chemistry coupled into specific flow conditions. As a result while they can still share a lot of design elements and ideas on the combustor side (I take a lot from the half cat rocketry reference book), anything downstream of the combustor is unique to a gas dynamic laser and has unique design challenges not found in a rocket engine. Still I took a lot of inspiration from other hobby liquid rocket engine designs as a guide as what is possible for a hobby designer. While I didn't explicitly take any designs from them the half-cat rocketry design guides where a huge help.
+
+To turn the simulated design into reality four separate components must be designed, each of which have interlinking performance and requirements and numerous sub-components listed here:
+
 - The gas generator
   - Fuel / Oxidizer chemistry
   - Injector design
@@ -315,11 +323,11 @@ As follows I will go through each design component, listing the basic tradeoffs 
 
 ### Gas Generator 
 
-The gas generator system is the most important and interesting aspect of gas dynamic laser design. As shown above as long as long as N2 CO2 and H2O can be created at sufficient ratios and temperatures population inversion can be attained. The amazing thing about this particular mix of gasses is that it just happens to be exactly the mixture you get when you burn any hydrocarbon in air! However, there is one catch. The sorts of exhause mixtures you get from burning a typical hydrocarbon are vastly different than the idealized ratios you want for high performance. It is this conflict between ease of design and performance which drives some of the more interesting designs proposed historically.
+The gas generator system is the most important and interesting aspect of gas dynamic laser design. As shown above as long as long as N2 CO2 and H2O can be created at sufficient ratios and temperatures population inversion can be attained. The amazing thing about this particular mix of gasses is that it just happens to be exactly the mixture you get when you burn any hydrocarbon in air! However, there is one catch. The sorts of exhaust mixtures you get from burning a typical hydrocarbon are vastly different than the idealized ratios you want for high performance. Moving away from the ideal ratios of N2 CO2 and H2O can degrade performance and even kill the population inversion altogether. It is this conflict between ease of design and performance which drives some of the more interesting designs proposed historically.
 
 #### Fuel Choice
 
-The ideal ratio of N2:CO2:H2O by molar ratios is roughly 100:10:1 (the precise ideal amount depends on temperature, pressure, and nozzle geometry), while on the other hand burning typical hydrocarbon in air contains vastly more H2O and less CO2 than ideal. For example methane, with a 1:4 carbon to hydrogen ratio burned stoichiometrically with oxygen results in a CO2 to H2O ratio of 1:2, far from the ideal 10:1. Increasing the complexity of the molecule increases the efficiency a little, a saturated long chain hydrocarbon approaches a carbon to hydrogen of 1:2, giving a 1:1 CO2 to H2O ratio after being burned. Efficiency can yet still be increased by adding more Carbon-Carbon bonds to our ideal fuel, with a fuel such as Acetylene or Benzene having a carbon to hydrogen ratio of 1:1, giving a CO2 to H2O ratio of 2:1. Still a far cry from the ideal 10:1 but still a lot better than methane.
+The ideal ratio of N2:CO2:H2O by molar ratios is roughly 100:10:1 for maximum laser performance (the precise ideal amount depends on temperature, pressure, and nozzle geometry), while on the other hand burning typical hydrocarbon in air contains vastly more H2O and less CO2 than ideal. For example methane, with a 1:4 carbon to hydrogen ratio burned stoichiometrically with oxygen results in a CO2 to H2O ratio of 1:2, far from the ideal 10:1. Increasing the complexity of the molecule increases the efficiency a little, a saturated long chain hydrocarbon approaches a carbon to hydrogen of 1:2, giving a 1:1 CO2 to H2O ratio after being burned. Efficiency can yet still be increased by adding more Carbon-Carbon bonds to our ideal fuel, with a fuel such as Acetylene or Benzene having a carbon to hydrogen ratio of 1:1, giving a CO2 to H2O ratio of 2:1. Still a far cry from the ideal 10:1 but still a lot better than methane.
 
 Of course, more efficiency can still be found by substituting some of the hydrogens with nitrogen compounds, however then you start running into stability problems. While the ideal fuel from a stoichiometric compound would look something like an aromatic carbon with most of its hydrogens replaced with nitrogen groups, what I just described is TNT, not exactly the most friendly thing to fuel a rocket engine.
 
@@ -342,14 +350,14 @@ The table below collects a handful of candidate fuels, ordered roughly from the 
 
 Beyond the data in the chart there are a few other considerations as well. While generally higher temperature means higher performance, it only goes up to a point. Eventually at too high temperature CO2 (around 2300K)begins to disassociate resulting in non-equilbiirum chemistry downstream which can degrade performance. Additionally a major constraint on higher performance fuels is handling them. While fuels like HNB and Acetylene seem great, they tendency to spontaneously explode limits their usefulesness.
 
-For my own personal design I landed on toluene as my fuel of choice. It perfectly straddles the boundary of accessibility, toxicity, and performance by being essentially the highest performing liquid fuel I can buy from the hardware store. Of course this still leaves future room for experimentation, all of the fuels on the list have by experimentally tried and verified to work in gas dynamic lasers in some form or another.
+For my own personal design I landed on toluene as my fuel of choice. It perfectly straddles the boundary of accessibility, toxicity, and performance by being essentially the highest performing liquid fuel I can buy from the hardware store. This is also a fuel which was commonly used in many historical designs for essentially the same reasons, its hard to beat the toluene in any tradeoff study where safety and fuel accessibility is a concern. Of course this still leaves future room for experimentation, all of the fuels on the list have by experimentally tried and verified to work in gas dynamic lasers in some form or another. In particular solid powered gas dynamic lasers using common nitrocellulose (gunpowder) may be another accessible path for hobby creators.
 
 #### Oxidizer Choice
-Compared to the littany of fuel choices oxidizer choice is more mundane. Ultimately the design comes down to tuning the nitrogen to oxygen ratio to maximize performance. This really leads to three practical choices for oxidizers:
-- Nitrous oxide: 66% Nitrogen, 33% Oxygen, higher energy but unideal ratio.
-- Air: 80% Nitrogen 20% Oxygen, better ratio lower energy
-- Custom N2 O2 mixture: tuned for fuel choice, best performance but hardest to get
+Compared to the litany of fuel choices oxidizer choice is more mundane. Ultimately the design comes down to tuning the nitrogen to oxygen ratio to maximize performance. This really leads to three practical choices for oxidizers:
 
+- Nitrous oxide: 66% Nitrogen, 33% Oxygen, higher energy but unideal ratio. Self pressurizing and liquid.
+- Air: 80% Nitrogen 20% Oxygen, better ratio lower energy, very low density.
+- Custom N2 O2 mixture: tuned for fuel choice, best performance but hardest to get
 
 Ultimately for hobby design the choice is obvious, compressed air is high performance, easy to attain, easy to handle, and most important of all cheap. In a project full of hard problem and tough tradeoffs this is the one welcome reprieve. Even at larger industrial or military scales the obvious upsides of air combustion made it the most obvious option for most historical designs.
 
@@ -361,9 +369,25 @@ Fuel Oxidizer ratio is another design lever we have to optimize our design which
 - Increasing nitrogen ratio
 - Adding in more dilutents (extra oxygen for air rich, various carbon compounds for fuel rich)
 
-It is difficult to account for the effects of all of these, especially the presence of dilutents which could effect kinetic rates and optics, but I found that an ox rich design generally is easier to design for due to the lower reservoir temperatures and more favorable nitrogen to carbon dioxide ratio.
+It is difficult to account for the effects of all of these, especially the presence of dilutents which could effect kinetic rates and optics in ways that are difficult to capture in our simplified model, but I found that an ox rich design generally is easier to design for due to the lower reservoir temperatures and more favorable nitrogen to carbon dioxide ratio.
+
+Desiring a lower reservoir temperature may seem contradictory to the previous statements that laser performance scales with temnperature, which is true in a general sense. However, higher temperature drive stricter requirements for our nozzle design in order to achieve population inversion. Which in turn drives harder requirements for manufacturing tolerances and makes it more difficult to efficiently couple our exhaust stream back into the atmosphere with our diffuser.
 
 ### Nozzle
+
+The nozzle is probably the single most important component for dictating our laser performance while at the same time also requiring the most complex modelling. Every other design decision up and downstream of the nozzle couples into laser performance and drives requirements for nozzle design, thus it is important to understand how the two free variables we have for choosing our nozzle geometry, throat height and expansion ratio drive and are driven by variables across the rest of the system.
+
+In a traditional rocket engine, the one a common hobby designed might make, generally two rough approximations are true:
+- Rocket performance per propellant mass is independent of size (i.e. you can approximate the performance solely through area ratios)
+- The whole rocket can be designed as rotationally symmetric.
+
+Neither of these cases are true in the case of gas dynamic laser design due to our reliance on non-equilibrium effects. 
+
+Unlike a traditional 1D model of a rocket nozzle, the addition of finite non-equilibrium vibrational lifetimes to our model necessitates that our nozzle design necessarily take into account the absolute size of the nozzle, not just the relative sizes. This is because while variables like mass flow rate can scale nicely and evenly with respect to flow area, the lifetimes of our states are fixed variables which do not scale per unit mass. This means that while a nozzle with a 10mm^2 throat may experience population inversion, a nozzle with a 10cm^2 throat may not, even if all other variables (reservoir pressure, temperature, chemistry) are kept equal. 
+
+This can intuitively be explained with some back of the envelope math. Let's say we need our gas to be cooled from maximum temperature to its minimum in under 25 us in order to create a population inversion. If our gas moves through the expansion part of our throat at an average velocity of mach 3 (~1000 m/s), then it would mean our nozzle can have a maximum length of 2.5 cm. Given that the average expansion ratio of a gas dynamic laser nozzle is atleast 10 or more, this would mean that it would necessitate that our nozzle area to start with is quite small, on the order of square millimeters not centimeters.
+
+Two clever design tricks we can use to break
 
 ### Diffuser
 
