@@ -655,7 +655,7 @@ p {
 }
 
 .katex-display {
-    font-size: 1.0em !important;
+    font-size: 1.25em !important;
     text-align: center;
     margin: 1.5rem auto !important;
     display: block;
