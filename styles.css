@@ -715,3 +715,31 @@ p > .katex-display {
         padding-left: 0.75rem;
     }
 }
+
+/* Content tables (in blog posts) */
+.blog-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background-color: var(--card-bg);
+    font-size: 0.95rem;
+}
+
+.blog-content th,
+.blog-content td {
+    /* Borders on every side give clear row and column separators */
+    border: 1px solid var(--border-color);
+    padding: 0.6rem 0.9rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.blog-content thead th {
+    background-color: var(--nav-bg);
+    border-bottom: 2px solid var(--accent-color);
+    font-weight: 600;
+}
+
+.blog-content tbody tr:nth-child(even) {
+    background-color: var(--hover-bg);
+}

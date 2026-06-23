@@ -253,7 +253,12 @@ The integration is seeded at the reservoir from stagnation conditions: density a
 
 To feed the solver realistic inlet conditions there is also a combustion front-end built on [Cantera](https://cantera.org/), which works out the stoichiometry and stagnation conditions of the burnt gas for a combustion-driven design. Two reference scenarios ship with the project as configuration files: a direct-heating case reproducing Anderson's textbook treatment<sup>[[1]](#ref-anderson1976)</sup>, and a combustion-driven case based on Itaya et al.<sup>[[3]](#ref-itaya1997)</sup>, which lets the model be validated against published results before being trusted on a novel design.
 
-With this machinery in place we can finally design ourselves a gas dynamic laser. Starting from a combustion chamber, fuel chemistry, and nozzle contour we can the derive the ultimate performance of theoretical designs and figure out exactly how hard it is to build one.
+#### Performance Modelling
+
+The solver hands us the three temperaturesL the translational–rotational bath $T$, the upper Mode I temperature $T_I$, and the lower Mode II temperature $T_{II}$; each at every point along the nozzle. The final step is to turn that thermodynamic state into a measure the energy we could in principle pull out as laser light. The trick is that each temperature fixes the population of its levels through the Boltzmann distribution, so the upper laser level population follows $T_I$ and the lower laser level population follows $T_{II}$. The size of the population inversion is just the difference between the two, and multiplying that inversion density by the energy of a single 10.6 μm photon gives the extractable energy stored per unit volume of gas. Folding in the mass flow then converts this into a laser power. My implementation of this calculation, along with the full flow solver, lives in the [GDLDesigner repo](https://github.com/Tsuchijo/GDLDesigner).
+
+It is important to be clear about what this number represents: it is a *ceiling*, not a prediction of real output. The calculation assumes that the entire inversion can be drained to zero and that every available photon is collected, with no optical losses anywhere. A real laser never reaches this and a littany of real world inefficiencies all eat into this output value. The real extractable power will always be some fraction of this theoretical maximum, but the ceiling is still the right quantity to optimize a design against, since a design that cannot produce a large inversion in the first place has no hope of lasing well no matter how good the optics are.
+
 ### Results
 
 Taking all this together, we can create a complete simulation of a lasers idealized performance from the following design parameters:
@@ -373,6 +378,28 @@ It is difficult to account for the effects of all of these, especially the prese
 
 Desiring a lower reservoir temperature may seem contradictory to the previous statements that laser performance scales with temnperature, which is true in a general sense. However, higher temperature drive stricter requirements for our nozzle design in order to achieve population inversion. Which in turn drives harder requirements for manufacturing tolerances and makes it more difficult to efficiently couple our exhaust stream back into the atmosphere with our diffuser.
 
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/phi_sweep.png" alt="optimizing over air fuel ratio" class="center-image image-large">
+  <figcaption class="image-caption">The resulting predicted performance sweeping through various ratioss, from a stoichiometric air fuel ratio to a very lean one for a fixed nozzle geometry and reservoir conditions. As can be seen the highest energy ratio is not always optimal</figcaption>
+</figure>
+
+#### Chamber Pressure
+The final design variable which must be considered in the design of a gas generator system is the chamber pressure. In a typical rocket engine where one wishes to maximize thrust and efficiency you would design for as high a chamber pressure your fluid system and chamber materials would allow for you to go, but in our case the choice is a little more complex. There are two main variables which pull our desired chamber pressure in opposite directions: 
+- Kinetic rates, which prefer lower chamber pressures
+- Diffuser starting conditions, which prefer higher starting conditions
+
+Kinetic rates tend to prefer a lower chamber pressure as higher pressures cause the upper lifetimes to be shortened, reducing the population inversion. Even though the point of the nozzle is in part to cool it down and drop the pressure, the pressure must still maintain a continuous gradient from high to low pressure. Thus a higher pressure chamber results in the exhaust stream spending more time at higher pressure, causing the upper modes to be exhausted faster. The general relationship between pressure temperature and kinetic rates is encoded in an empirical formula known as the Millikan-White equation<sup>[[5]](#ref-millikan1963)</sup>, which states:
+
+$$
+p\,\tau = \exp\!\left[A\left(T^{-1/3} - 0.015\,\mu^{1/4}\right) - 18.42\right], \qquad A = 1.16\times10^{-3}\,\mu^{1/2}\,\theta_v^{4/3}
+$$
+
+Here $\tau$ is the vibrational relaxation time (in seconds), $p$ the pressure (in atmospheres), and $T$ the local translational temperature. The two parameters that characterize the relaxing pair are $\mu$, the reduced mass of the colliding molecules (in atomic mass units), and $\theta_v$, the characteristic vibrational temperature of the relaxing mode (in kelvin)[^millikanwhite]. The key consequence for our purposes is that, at fixed temperature, the product $p\,\tau$ is constant — so $\tau \propto 1/p$. Doubling the chamber pressure roughly halves the relaxation time, draining the upper modes faster and eroding the population inversion, which is precisely why kinetic rates pull us toward lower chamber pressures.
+
+[^millikanwhite]: The Millikan-White correlation is a least-squares fit to a large body of shock-tube relaxation data, and it captures the dominant physics rather than every detail: heavier colliding partners (larger $\mu$) and stiffer, higher-frequency modes (larger $\theta_v$) both relax more slowly, while higher translational temperatures relax faster via the $T^{-1/3}$ Landau-Teller dependence. The correlation is fit per collision pair, so the effective lifetimes $\tau_I$ and $\tau_{II}$ used in the solver are composition-weighted averages over the individual pairwise rates. The fit is least accurate at very low temperatures and for strongly polar or chemically reactive partners, where additional attractive-force corrections are usually applied. See Millikan and White<sup>[[5]](#ref-millikan1963)</sup> for the original derivation and tabulated constants, and Anderson<sup>[[1]](#ref-anderson1976)</sup> for the more precise rate data and correction factors gathered specifically for validating gas dynamic laser performance.
+
+On the other hand diffuser performance tends to push our requirements towards higher chamber pressures. A more in depth dive into the ins and outs of diffuser design will come in the later section but in essence the more you expand your exhaust, the more energy you irreversibly lose to entropy across the shock boundary from sonic to subsonic. This tradeoff means that the more you expand the exhaust, the harder it is to bring that exhaust back to atmospheric pressures to effectively run the system without a vacuum system. This means that generally there is a lower limit to your chamber pressure dictated by nozzle geometry and diffuser performance, which for non vacuum pump or active ejector systems is ultimately what will dictate your minimum design chamber pressure.
+
 ### Nozzle
 
 The nozzle is probably the single most important component for dictating our laser performance while at the same time also requiring the most complex modelling. Every other design decision up and downstream of the nozzle couples into laser performance and drives requirements for nozzle design, thus it is important to understand how the two free variables we have for choosing our nozzle geometry, throat height and expansion ratio drive and are driven by variables across the rest of the system.
@@ -387,15 +414,213 @@ Unlike a traditional 1D model of a rocket nozzle, the addition of finite non-equ
 
 This can intuitively be explained with some back of the envelope math. Let's say we need our gas to be cooled from maximum temperature to its minimum in under 25 us in order to create a population inversion. If our gas moves through the expansion part of our throat at an average velocity of mach 3 (~1000 m/s), then it would mean our nozzle can have a maximum length of 2.5 cm. Given that the average expansion ratio of a gas dynamic laser nozzle is atleast 10 or more, this would mean that it would necessitate that our nozzle area to start with is quite small, on the order of square millimeters not centimeters.
 
-Two clever design tricks we can use to break
+If under these conditions we were to make a traditional rocket engine style rotationally symmetric nozzle, our total mass flow rate would not be able to surpass a few grams per second, with total lasers energies limited in the tens of watts. This is a far cry from the kilowatts or even megawatt power ranges gas dynamic lasers operate best in. Because of this generally instead gas dynamic lasers tend to be designed to operate with a "bank" of thin linear nozzles side by side with very thin total throat heights, down to a millimeter or less. This lets the nozzle expand over a relatively short distance in space while decoupling the beam size (the nozzle width) from the expansion ratio (nozzle height times area ratio). Additionally this has the added bonus of making the whole system relatively expandable, as multiple sections of nozzles can be added to lengthen the beam path, increasing total laser power.
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/NozzleComparison.png" alt="Comparison of a conical nozzle with a linear nozzle" class="center-image image-large">
+  <figcaption class="image-caption">A linear nozzle next to a conical nozzle with the same throat area and expansion ratio. For the same parameters a linear nozzle can be much shorter allowing for flows to cool faster, resulting in a higher "frozen" temperature of the upper vibrational modes</figcaption>
+</figure>
+
+In choosing our design of a linear nozzle, 3 variables must be considered:
+- Area ratio
+- Nozzle height
+- Mass flow rate
+Each of which must be carefully chosen for a design taking into account all the other subsystems.
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/nozzle_dimensions.svg" alt="Dimensioned schematic of a linear slit nozzle" class="center-image image-large">
+  <figcaption class="image-caption">The geometry of a basic linear slit nozzle. Because the nozzle width is constant, the expansion ratio reduces to the ratio of exit height to throat height, and a fixed 15&deg; half-angle ties the divergent length directly to the throat height. The throat width sets the mass flow rate independently of this cooling geometry.</figcaption>
+</figure>
+
+More detail on nozzle design can be found in Anderson's textbook for gas dynamic laser specific designs or any general rocketry reference for more general design advice, this is just meant for a basic overview of the key design aspects for my own gas dynamic laser design.
+
+#### Area Ratio
+For any converging-diverging de Laval nozzle the area ratio, the ratio of the exit area to the throat area, $A_e/A^*$, is one of the most important design variables, as it sets how far the flow expands and therefore how cold and rarefied the gas becomes by the time it reaches the optical cavity. For a steady, isentropic, calorically perfect flow the area ratio is tied directly to the local Mach number $M$ through the area–Mach relation:
+
+$$
+\frac{A}{A^*} = \frac{1}{M}\left[\frac{2}{\gamma+1}\left(1 + \frac{\gamma-1}{2}M^2\right)\right]^{\frac{\gamma+1}{2(\gamma-1)}}
+$$
+
+Once the Mach number is known, the static temperature and pressure follow from the stagnation (chamber) conditions $T_0$ and $p_0$ through the isentropic relations:
+
+$$
+\frac{T}{T_0} = \left(1 + \frac{\gamma-1}{2}M^2\right)^{-1}, \qquad
+\frac{p}{p_0} = \left(1 + \frac{\gamma-1}{2}M^2\right)^{-\frac{\gamma}{\gamma-1}}
+$$
+
+The key takeaway is that both the static temperature and the static pressure ratios as the area ratio grows. As the nozzle area ratio grows, the speed of the exhaust grows as well, which simultaneously cools it and drops its pressure. Note that these closed-form relations assume a fixed ratio of specific heats and an isentropic, equilibrium expansion; in a real gas dynamic laser the vibrational modes freeze out and the flow is not perfectly isentropic, so the actual temperature drop is shallower than these idealized expressions predict (and is why we resort to the full numerical solver above). They are nonetheless provide a good intuition as to how nozzle performance is driven by area ratio.
+
+This temperature drop is what primarily motivates the choice of area ratio. Recall that population inversion in a gas dynamic laser is maintained not by pumping the upper level harder, which has the maximum set by the reservoid temperature, but by *emptying the lower one*. The lower laser level has a thermal floor set by the translational–rotational bath in the ideal case where the bottom is instantly depopulated and the top stays at reservoir temp. Therefore lowering down the temperature of the flow coming out the nozzle is primarily what dictates the performance of our laser. However it is not simply the case that the higher the area ratio the better, once the downstream flow has been sufficiently cooled the lower laser mode will be nearly entirely depopulated, any cooling past that unnecessarily restricts our design.
+
+The way nozzle area ratio drive performance can clearly be seen by sweeping through area ratios for fixed reservoir conditions and simulating the resulting laser energy:
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/area_sweep.png" alt="Comparison of various area ratios for a reservoir" class="center-image image-large">
+  <figcaption class="image-caption">A simulated parameter sweep of nozzle area ratios for fixed reservoir conditions, plotting maximum extractable laser energy.</figcaption>
+</figure>
+
+As can be seen the laser performance quickly increases with laser performance to a point, but once the lower level is cooled enough to be depopulated performance then levels off. At very high expansion ratios the performance then starts to decrease as the length of the nozzle increases to the point where the population inversion starts decaying before it even leaves the nozzle. This sweep shows that while nozzle selection is essential to performance, the minimum value needed for a certain level of performance for a given fuel can determiend from some simple simulations where a large set of values can work, and ultimately our design will mainly be constrained by diffuser performance instead.
+
+#### Nozzle Height
+With the area ratio fixed, the throat height becomes the variable that sets the physical length of the nozzle. For a simple wedge nozzle with 15 degrree half angle expansion the geometry is fixed so the distance needed to reach the chosen area ratio scales directly with the throat height. A taller throat means a proportionally longer nozzle to achieve the same expansion.
+
+As discussed above, the population inversion only lives over a very short distance downstream of the throat before the upper mode relaxes and the gain disappears, a distance that is independent of flow rate. A longer nozzle means the flow spends more time expanding and cooling, which lets the upper mode bleed away before final temperature and pressure is reached. The throat height should therefore be made as small as the manufacturing method will reliably allow, pushing the nozzle as short as possible so that the flow freezes while the inversion is still strong. In practice the lower bound on throat height is set not by the physics but by manufacturing methods and cooling ability.
+
+#### Mass Flow Rate
+The final variable is the total mass flow rate, and conveniently it is almost entirely decoupled from the choices above. Because the throat is choked (the flow reaches Mach 1 there), the mass flow rate is fixed purely by the throat *area* and the upstream stagnation conditions and not anything downstream of the throat. With the throat height already pinned by the length argument, it is the nozzle *width* that sets the throat area and therefore the flow rate. Widening the nozzle bank scales the flow rate linearly while leaving the per-slice cooling physics untouched, which is exactly why gas dynamic lasers are built as banks of wide, thin linear nozzles.
+
+For a choked, isentropic, calorically perfect gas the mass flow rate through the throat of area $A^*$ is:
+
+$$
+\dot{m} = A^* \, p_0 \sqrt{\frac{\gamma}{R\,T_0}}\left(\frac{2}{\gamma+1}\right)^{\frac{\gamma+1}{2(\gamma-1)}}
+$$
+
+where $p_0$ and $T_0$ are the chamber stagnation pressure and temperature and $R$ is the specific gas constant of the mixture. The real flow has frozen vibrational modes and is not perfectly isentropic, but the throat sits close to the chamber where the gas is still near equilibrium, so this expression is a good enough approximation for sizing purposes. The significance of this is that the nozzle width is the single knob that sets $\dot{m}$, and once chosen it drives the requirements for every upstream fluid system in combination with the mixture ratios of the propellant and oxidizer.
+
+#### Geometry Optimization
+
+For my simulation and design I chose to go with the 15 degree half angle wedge nozzle for simplicities sake, despite it being slightly suboptimal. A more optimal geometry can be generated using techniques such as method of characteristics (MoC) but that is outside the scope of this post. However one must be careful in how what they are optimizing for, typical rocket nozzles optimize for thrust at the cost of nozzle length, whereas for our case we wish to minimize nozzle length at all costs, and don't care much about thrust.
 
 ### Diffuser
 
+The purpose of the diffuser in our system is a simple one. Immediately coming out of the nozzle the gas pressure is significantly below atmospheric pressure moving at many times the speed of sound, the purpose of a diffuser is to convert a fraction of the kinetic energy back into potential to allow a the laser system to be smoothly exhausted to the environment 
+
+Out of all the components the diffuser is the most difficult to design but also the easiest to simulate, in part because there is no good way to simulate its performance. To quote J.D. Anderson "It is important to accept that contemporary supersonic and hyperonic diffuser design is more of an art than a science. This is particularly true for the CO2-N2 gasdynamic laser diffuser..." 
+
+As a result most of the following work is more about giving some of the general design heuristics and effective geometries used in the past, to verify any of these physical testing is required, preferrably with a schlieren imaging setup to make really cool images. Much of the practical guidance here, along with the schlieren imagery below, draws on Zerr's experimental study of short diffusers for gas dynamic lasers<sup>[[7]](#ref-zerr1974)</sup>, which remains one of the more useful hands-on references for the problem.
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/DiffuserExample.png" alt="Cool image of a diffuser" class="center-image image-medium">
+  <figcaption class="image-caption">A schlieren image of the shock structure inside a short gas dynamic laser diffuser, from Zerr<sup>[<a href="#ref-zerr1974">7</a>]</sup>.</figcaption>
+</figure>
+
+
+#### How a Supersonic Diffuser Works
+Before getting into any numbers it helps to have a qualitative picture of what is actually happening inside the diffuser. You cannot slow a supersonic flow down to subsonic speeds gently and reversibly; somewhere the flow has to pass through one or more shock waves, and every shock carries an unavoidable loss of total pressure. The crude approach is to let the flow slam through a single strong normal shock, which drops it straight to subsonic but throws away an enormous amount of total pressure. The much better approach, and the one most supersonic diffusers are built around, is the **oblique shock train**: a converging duct or a series of ramps that turns and compresses the flow through a sequence of weak oblique shocks, each one nudging the Mach number down a little, before a final weak terminal shock takes it subsonic. Because the total-pressure loss across a shock grows steeply with how much the flow is decelerated in a single jump, spreading the deceleration over many gentle oblique shocks recovers far more pressure than one violent normal shock — the same reason it hurts less to walk down a flight of stairs than to jump off the top.
+
+The other concept worth understanding up front is **starting**. A supersonic diffuser has two possible operating states: an "unstarted" state, where a strong shock sits ahead of or inside the inlet and chokes the flow, spilling and disrupting it, and a "started" state, where the supersonic flow is properly swallowed and the well-behaved oblique shock train sets up inside the duct as intended. A given fixed geometry will only start once the upstream flow is supersonic enough and the back pressure is low enough to push the shock system through and into its design position. This is why diffuser geometry, cavity pressure, and back pressure are all coupled: pick the wrong combination and the diffuser simply refuses to start, the shock disgorges back up into the optical cavity, and the whole carefully-tuned non-equilibrium flow is ruined. A full and very readable treatment of oblique shocks, shock trains, and the starting problem can be found in Anderson's compressible flow text<sup>[[6]](#ref-anderson2003)</sup>, which is a separate and more general work from the gas dynamic laser book cited throughout the rest of this post.
+
+#### Pressure Recovery
+Despite the empirical nature of diffuser design, we can still bound what is physically achievable. The job of the diffuser is to take the cold, fast cavity flow at static pressure $p_c$ and Mach number $M$ and decelerate it, recovering as much pressure as possible so the exhaust can reach the back pressure $p_b$ (usually atmospheric). The simplest theoretical reference point is a single normal shock followed by an isentropic deceleration to rest. The static pressure jump across a normal shock at Mach $M$ is given by the Rankine–Hugoniot relation:
+
+$$
+\frac{p_2}{p_1} = 1 + \frac{2\gamma}{\gamma+1}\left(M^2 - 1\right)
+$$
+
+but a normal shock is violently lossy in *total* pressure, and that total-pressure loss is what ultimately limits how much static pressure the diffuser can hand back. The total pressure recovered across a normal shock is:
+
+$$
+\frac{p_{0,2}}{p_{0,1}} = \left[\frac{(\gamma+1)M^2}{(\gamma-1)M^2 + 2}\right]^{\frac{\gamma}{\gamma-1}}\left[\frac{\gamma+1}{2\gamma M^2 - (\gamma-1)}\right]^{\frac{1}{\gamma-1}}
+$$
+
+Real diffusers do not rely on a single normal shock; a well-designed supersonic diffuser sets up a *train* of weaker oblique shocks that, in principle, throws away less total pressure than one strong normal shock. We capture how well a given diffuser actually performs with a recovery efficiency $\eta_d$, defined as the ratio of its real total-pressure recovery to the ideal normal-shock value at the same inlet Mach number:
+
+$$
+\eta_d = \frac{\left(p_{0,2}/p_{0,1}\right)_\mathrm{actual}}{\left(p_{0,2}/p_{0,1}\right)_\mathrm{normal shock}}
+$$
+
+so that the total pressure delivered to the exhaust is $p_{0,2} = \eta_d \left(p_{0,2}/p_{0,1}\right)_\mathrm{NS}\, p_{0,1}$, and the diffuser successfully exhausts to the environment only when this recovered pressure exceeds the back pressure, $p_{0,2} \ge p_b$.
+
+By this definition $\eta_d > 1.0$ should be attainable — an oblique shock train ought to beat a single normal shock. In practice, however, for the supersonic-to-hypersonic inlet Mach numbers a gas dynamic laser runs at, it is rare to achieve an efficiency above 1.0 at all. Shock–boundary-layer interaction, the thick low-momentum boundary layers that build up along the diffuser walls, flow separation, and the difficulty of keeping a clean oblique shock structure at high Mach number all conspire to drag the real recovery back down toward (or below) the simple normal-shock value. It is therefore safest to design assuming $\eta_d \lesssim 1.0$ and to treat anything better as a pleasant surprise to be confirmed by testing.
+
+For a specific assumed diffuser normal shock efficiency, this relationship determines the absolute minimum reservoir pressure needed to start the diffuser for a specific area ratio. This then dictates the minimum pressure for our combustion chamber, dictating combustion chamber parameters, which in turn dictates nozzle design and thus downstream diffuser performance. This set of relationships is what drives the wheel for our iterative design process. 
+
+#### Design Heurstics
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/GeneralDiffuserDesign.png" alt="General Diffuser Geometry" class="center-image image-medium">
+  <figcaption class="image-caption">General geometry of a diffuser for a gas dynamic laser, from Zerr<sup>[<a href="#ref-zerr1974">7</a>]</sup>.</figcaption>
+</figure>
+
+While the specifics of diffuser design comes down to trial and error, I take the general design geometry from previous work from Zerr <sup>[<a href="#ref-zerr1974">7</a>]</sup>, which generally matches the designs I see throughout the GDL literature. Overall the design of the diffuser is fairly simple, just a flat angled ramp section and a constant area throat. Generally from Zerr and Anderson they suggest an area ratio of throat to nozzle exit of around 0.8, this strikes a balance between having an area large enough to allow the diffuser to start, and acceptable performance. For the ramp angle generally it appears that a value around 15 degreees is desired. Throat length is the most empirical, and I just chose a value that seemed long enough based on other examples and was simple to manufacture.
+
 ### Optics 
+
+Once the flowing gas carries a population inversion through the cavity, extracting useful light from it is, refreshingly, the one part of a gas dynamic laser that behaves like an ordinary laser. The optical resonator is the same one you would find in any textbook CO<sub>2</sub> laser: there is nothing exotic about it beyond the fact that the gain medium happens moving through the beam at hypersonic speed. Because of this I will keep this section brief, a proper treatment of resonator design, mode structure, stability diagrams, and output coupling can be found in standard laser optics text such as Siegman's *Lasers*<sup>[[8]](#ref-siegman1986)</sup>, which covers all of it far better than I could here.
+
+The basic job of the optics is power extraction. A pair of mirrors is placed on either side of the flow, their optical axis crossing the gas stream perpendicular to its motion, forming a resonant cavity. One mirror is a maximum reflector that bounces essentially all of the light back into the cavity, while the other is a partially transmissive output coupler that lets a fixed fraction of the circulating power leak out as the usable beam. Photons making round trips between the mirrors stimulate emission from the inverted molecules as they pass, building the intracavity field up until the round-trip gain just balances the losses, at which point the laser is extracting energy from the flow as fast as the gas can deliver it.
+
+#### Windows
+The one genuinely non-trivial optical component is the window that lets the beam out of the pressurized flow duct while holding back the gas. The material has to be highly transmissive at the CO<sub>2</sub> laser's 10.6 μm wavelength, which immediately rules out ordinary glass and narrows the field to infrared materials such as zinc selenide (ZnSe), gallium arsenide (GaAs), or even ordinary sodium chloride (NaCl). On top of the optical requirement the window must survive as a structural part: it has to withstand the pressure differential across the duct, tolerate the thermal load of any absorbed beam power without fracturing or thermally lensing, and resist erosion from the high-speed flow. For more on the mechanical side of mounting and designing optical windows to survive these pressure and thermal loads, see Willistein's tutorial on optical window design<sup>[[9]](#ref-willistein2006)</sup>. In general ZnSe windows are widely available due to the common industrial use of CO2 lasers and is what I would reccomend for any home design, however if you really want to scale power beyond the kilowatt range then no solid window material will work.
+
+For exactly this reason the most powerful gas dynamic lasers historically did away with the solid window altogether, replacing it with an **aerodynamic window**: a carefully shaped supersonic flow that sustains the pressure difference between the cavity and the outside world while letting the beam pass through nothing but gas, removing any solid material from the high-intensity beam path. This is an elegant but considerably more complex solution, with its own gas-dynamic design problem attached, and a full treatment of it can be found in Anderson<sup>[[1]](#ref-anderson1976)</sup>. It is outside the scope of this post, which assumes a conventional solid window.
 
 ## My Design 
 
-### Demo
+Now armed with all this knowledge it is time to build our own laser system. While the information and simulation tools I built can work across a range of exotic system, our design will generally mostly be constrained by the ability for a hobby maker to create it for a maximum of a couple thousand dollars. This adds a few limitations which guides the rest of our downstream design:
+
+- No exotic reagents: all fuels and oxidizers safe and accessible
+- Medium to low pressure: high pressure fluids systems are dangerous or expensive, generally limiting pressure is safe
+- Low mass flow rate: as mass flow rate goes up every fluid system because harder and more expensive, with less off the shelf parts
+- All parts small enough to be reasonably cheaply manufactured: don't have the money to machine down hundreds of pounds of feed stock
+
+These general design heuristics get translated into hard requirements for a hobby design:
+
+- Air system must have mass flow rate and pressure low enough to be powered by common welding regulator
+- Diffuser dimensions must be compatible with available sheet metal widths
+- Laser must couple into atmosphere purely through diffuser with no vacuum system
+- Laser optics must use common CO2 laser cutter optical parts
+- Combustion chamber geometry must be compatible with metal 3d printing
+- Laser must have atleast 100 watts of extractable laser energy
+
+Running these requirements through some test designs and doing a grid search optimization of design parameters landed me on the follow basic design:
+
+| Parameter | Value | Motivating Requirement |
+| --- | --- | --- |
+| Chamber pressure | 15 atm | Print wall thickness and available regulators |
+| Fuel | Toluene | Accessibility and performance |
+| Oxidizer | Air | Accessibility and performance |
+| Air–fuel equivalence ratio | 0.5 | Derived from simulation |
+| Nozzle expansion ratio | 12.7 | Common sheet metal thicknesses |
+| Throat height | 1 mm | Manufacturing tolerances |
+| Throat width | 25 mm | Power requirements and mass flow rate limitations |
+| Combustion chamber manufacturing | Metal 3D printing | — |
+| Diffuser manufacturing | Sandwiched cut sheet metal | — |
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/Optimization.png" alt="grid search optimization of GDL performance" class="center-image image-large">
+  <figcaption class="image-caption">A grid search of design parameters, plotting performance while varying the reservoir pressure and nozzle expansion ratio for a fixed combustion chemistry</figcaption>
+</figure>
+
+The design and engineering is still a work in progress, but I will add a series of pictures depicting my current progress below.
+
+### Design Gallery
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/DesignExample.png" alt="My homemade design" class="center-image image-large">
+  <figcaption class="image-caption">My homemade design, made to be 3d printed all in two pieces</figcaption>
+</figure>
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/PhysicalDesign1.jpg" alt="Physical build of the gas dynamic laser" class="center-image image-large">
+  <figcaption class="image-caption">The physical hardware of the assembled design.</figcaption>
+</figure>
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/PhysicalDesign2.jpg" alt="Another view of the physical gas dynamic laser build" class="center-image image-large">
+  <figcaption class="image-caption">Another view of the physical build.</figcaption>
+</figure>
+
+<figure class="image-container">
+  <img src="../../pictures/GasDynamicLaser/DiffuserTester.jpg" alt="Diffuser test rig" class="center-image image-large">
+  <figcaption class="image-caption">The diffuser test rig used to validate diffuser performance.</figcaption>
+</figure>
+
+<figure class="image-container">
+  <video src="../../pictures/GasDynamicLaser/DiffuserTest.mov" class="center-image image-large" controls muted loop playsinline></video>
+  <figcaption class="image-caption">The diffuser test rig in operation.</figcaption>
+</figure>
+
+## Additional Resources
+
+A collection of resources I found useful that fall outside the scope of this post but are well worth a look if you want to go deeper on any particular subsystem:
+
+- [Half Cat Rocketry](https://www.halfcatrocketry.com/) — an excellent practical resource on liquid rocket design aimed squarely at hobby makers, directly applicable to the combustion and feed systems here.
+- [Parker O-Ring Handbook (ORD-5700)](https://test.parker.com/content/dam/Parker-com/Literature/O-Ring-Division-Literature/ORD-5700.pdf) — essentially required reading for any pressure vessel or sealed-joint design.
+- [Combustion chamber design equations](https://risacher.org/rocket/eqns.html) — a handy reference for the equations governing combustion chamber sizing and performance.
+- [Small- and medium-output-power CO<sub>2</sub> GDL (SPIE)](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/3574/0000/Small--and-medium-output-power-CO2-GDL/10.1117/12.334434.short) — an example of other gas dynamic laser systems for comparison.
+- [Explosion-powered gas dynamic laser (AIAA)](https://arc.aiaa.org/doi/epdf/10.2514/3.50108) — a look at GDLs driven by explosive rather than steady combustion.
+- [Smokeless powder gas dynamic laser (Quantum Electronics)](https://iopscience.iop.org/article/10.1070/QE1982v012n01ABEH005325) — a solid-propellant approach to driving a gas dynamic laser.
 
 ## References
 
@@ -403,3 +628,8 @@ Two clever design tricks we can use to break
 2. <a id="ref-kantrowitz1946"></a>A. Kantrowitz, "Heat-Capacity Lag in Gas Dynamics," *The Journal of Chemical Physics*, vol. 14, no. 3, pp. 150–164, 1946. [https://doi.org/10.1063/1.1724115](https://doi.org/10.1063/1.1724115)
 3. <a id="ref-itaya1997"></a>Itaya et al., "Combustion-driven gas dynamic laser," *Proc. SPIE*, vol. 3092, 1997.
 4. <a id="ref-anderson1970"></a>J. D. Anderson Jr., "A Time-Dependent Analysis for Vibrational and Chemical Nonequilibrium Nozzle Flows," *AIAA Journal*, vol. 8, no. 3, pp. 545–550, 1970. [https://doi.org/10.2514/3.5703](https://doi.org/10.2514/3.5703)
+5. <a id="ref-millikan1963"></a>R. C. Millikan and D. R. White, "Systematics of Vibrational Relaxation," *The Journal of Chemical Physics*, vol. 39, no. 12, pp. 3209–3213, 1963. [https://doi.org/10.1063/1.1734182](https://doi.org/10.1063/1.1734182)
+6. <a id="ref-anderson2003"></a>J. D. Anderson Jr., *Modern Compressible Flow: With Historical Perspective*, 3rd ed. New York: McGraw-Hill, 2003.
+7. <a id="ref-zerr1974"></a>J. J. Zerr, "An Experimental Investigation of Short Diffusers for Gas Dynamic Lasers," M.S. thesis, Naval Postgraduate School, Monterey, CA, 1974. [https://archive.org/details/experimentalinve00zerr](https://archive.org/details/experimentalinve00zerr)
+8. <a id="ref-siegman1986"></a>A. E. Siegman, *Lasers*. Mill Valley, CA: University Science Books, 1986.
+9. <a id="ref-willistein2006"></a>D. A. Willistein, "An Introduction to Optical Window Design," OPTI 521 Tutorial, College of Optical Sciences, University of Arizona, 2006. [https://wp.optics.arizona.edu/optomech/wp-content/uploads/sites/53/2016/10/WillisteinTutorial1.pdf](https://wp.optics.arizona.edu/optomech/wp-content/uploads/sites/53/2016/10/WillisteinTutorial1.pdf)

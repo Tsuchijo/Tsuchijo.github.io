@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 520" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#b03a2e"/>
+    </marker>
+    <marker id="dim" markerWidth="9" markerHeight="9" refX="4" refY="3" orient="auto">
+      <path d="M7,0 L0,3 L7,6 Z" fill="#1f4e79"/>
+    </marker>
+    <marker id="flow" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#2e86c1"/>
+    </marker>
+  </defs>
+
+  <style>
+    .wall   { fill:none; stroke:#34495e; stroke-width:4; stroke-linejoin:round; stroke-linecap:round; }
+    .gas    { fill:#d6eaf8; opacity:0.9; }
+    .center { stroke:#7f8c8d; stroke-width:1.2; stroke-dasharray:8 5; }
+    .dimln  { stroke:#1f4e79; stroke-width:1.4; }
+    .ext    { stroke:#1f4e79; stroke-width:1; stroke-dasharray:3 3; }
+    .ref    { stroke:#7f8c8d; stroke-width:1; stroke-dasharray:5 4; }
+    .lbl    { fill:#1f2d3d; font-size:16px; }
+    .dimtxt { fill:#1f4e79; font-size:15px; }
+    .small  { fill:#566573; font-size:13px; }
+    .title  { fill:#1f2d3d; font-size:18px; font-weight:bold; }
+  </style>
+
+  <!-- ===== Side cross-section ===== -->
+  <!-- gas passage -->
+  <polygon class="gas" points="80,140 330,210 730,102.8 730,357.2 330,250 80,320"/>
+
+  <!-- nozzle walls -->
+  <polyline class="wall" points="80,140 330,210 730,102.8"/>
+  <polyline class="wall" points="80,320 330,250 730,357.2"/>
+
+  <!-- centerline -->
+  <line class="center" x1="60" y1="230" x2="770" y2="230"/>
+
+  <!-- flow arrows -->
+  <line x1="120" y1="230" x2="250" y2="230" stroke="#2e86c1" stroke-width="2.2" marker-end="url(#flow)"/>
+  <line x1="430" y1="230" x2="560" y2="230" stroke="#2e86c1" stroke-width="2.2" marker-end="url(#flow)"/>
+
+  <!-- 15 degree half-angle -->
+  <line class="ref" x1="330" y1="210" x2="500" y2="210"/>
+  <path d="M 420 210 A 90 90 0 0 0 416.7 186.7" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+  <text class="lbl" x="430" y="202" fill="#b03a2e">15&#176;</text>
+  <text class="small" x="372" y="226" fill="#b03a2e">half-angle</text>
+
+  <!-- throat height dimension -->
+  <line class="dimln" x1="330" y1="210" x2="330" y2="250" marker-start="url(#dim)" marker-end="url(#dim)"/>
+  <text class="dimtxt" x="300" y="195">h*</text>
+  <text class="small" x="250" y="180">throat height</text>
+  <line class="ext" x1="312" y1="186" x2="328" y2="207"/>
+
+  <!-- exit height dimension -->
+  <line class="ext" x1="730" y1="102.8" x2="788" y2="102.8"/>
+  <line class="ext" x1="730" y1="357.2" x2="788" y2="357.2"/>
+  <line class="dimln" x1="778" y1="102.8" x2="778" y2="357.2" marker-start="url(#dim)" marker-end="url(#dim)"/>
+  <text class="dimtxt" x="786" y="234">h&#8337;</text>
+  <text class="small" x="786" y="252">exit</text>
+  <text class="small" x="786" y="267">height</text>
+
+  <!-- divergent length dimension -->
+  <line class="ext" x1="330" y1="250" x2="330" y2="408"/>
+  <line class="ext" x1="730" y1="357.2" x2="730" y2="408"/>
+  <line class="dimln" x1="330" y1="400" x2="730" y2="400" marker-start="url(#dim)" marker-end="url(#dim)"/>
+  <text class="dimtxt" x="500" y="394">L</text>
+  <text class="small" x="375" y="421">L = (h&#8337; &#8722; h*) / (2 tan 15&#176;)</text>
+
+  <!-- section labels -->
+  <text class="small" x="86" y="120">from combustion</text>
+  <text class="small" x="86" y="135">chamber</text>
+  <text class="small" x="612" y="92">to optical cavity</text>
+  <text class="small" x="300" y="285">throat (M = 1)</text>
+
+  <!-- ===== Throat cross-section (front view) inset ===== -->
+  <text class="title" x="80" y="455">Throat cross-section</text>
+  <text class="small" x="80" y="472">(looking along the flow)</text>
+
+  <rect x="80" y="482" width="220" height="16" fill="#d6eaf8" stroke="#34495e" stroke-width="3"/>
+
+  <!-- width dimension -->
+  <line class="dimln" x1="80" y1="510" x2="300" y2="510" marker-start="url(#dim)" marker-end="url(#dim)"/>
+  <line class="ext" x1="80" y1="498" x2="80" y2="513"/>
+  <line class="ext" x1="300" y1="498" x2="300" y2="513"/>
+  <text class="dimtxt" x="170" y="507">w  (throat width)</text>
+
+  <!-- height dimension -->
+  <line class="dimln" x1="318" y1="482" x2="318" y2="498" marker-start="url(#dim)" marker-end="url(#dim)"/>
+  <line class="ext" x1="300" y1="482" x2="322" y2="482"/>
+  <line class="ext" x1="300" y1="498" x2="322" y2="498"/>
+  <text class="dimtxt" x="326" y="495">h*</text>
+
+  <!-- ===== Expansion ratio note ===== -->
+  <rect x="470" y="445" width="350" height="62" rx="6" fill="#fef9e7" stroke="#b7950b" stroke-width="1.4"/>
+  <text class="lbl" x="486" y="470">Expansion ratio</text>
+  <text class="lbl" x="486" y="494" font-style="italic">&#949; = A&#8337;/A* = h&#8337;/h*</text>
+  <text class="small" x="640" y="494">(width w constant)</text>
+</svg>
