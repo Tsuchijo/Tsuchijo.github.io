@@ -112,7 +112,7 @@ Using this equipartition theorem, along with the various energy levels of the CO
 First we need a model for what a vibrational mode actually *is*. Each of the normal modes we met earlier — the symmetric stretch, the bend, and the asymmetric stretch — behaves like a tiny *quantum harmonic oscillator*: a set of atoms oscillating on a spring, but with the catch that quantum mechanics only permits it to hold energy in discrete, evenly spaced rungs. If a mode vibrates with frequency $\nu$, then its allowed energies are:
 
 $$
-E_n = n h \nu, \qquad n = 0, 1, 2, \dots
+E_n = n h \nu, \qquad n = 0, 1, 2...
 $$
 
 where $n$ counts how many quanta of vibration the mode is holding (we ignore the constant zero-point energy, since it cancels out of everything that follows).
